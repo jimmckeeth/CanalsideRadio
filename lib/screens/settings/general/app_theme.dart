@@ -47,31 +47,32 @@ class _AppTheme extends State<AppTheme> {
                               radius: const Radius.circular(8),
                               thumbVisibility: true,
                               child: SingleChildScrollView(
-                                child: ListView.builder(
-                                    itemCount: MyConstants.of(context)!
-                                        .appThemes
-                                        .length,
-                                    shrinkWrap: true,
-                                    primary: false,
-                                    itemBuilder: (context, index) {
-                                      String value = MyConstants.of(context)!
-                                          .appThemes[index];
-                                      return RadioListTile<String>(
-                                          activeColor: Theme.of(context)
-                                              .colorScheme
-                                              .primary,
-                                          value: value,
-                                          selected: value == appTheme,
-                                          title: Text(value),
-                                          groupValue: appTheme,
-                                          onChanged: (String? value) {
-                                            if (value != null) {
-                                              appThemeBloc.changeAppTheme
-                                                  .add(value);
-                                              Navigator.of(context).pop();
-                                            }
-                                          });
-                                    }),
+                                child: RadioGroup<String>(
+                                  groupValue: appTheme,
+                                  onChanged: (String? value) {
+                                    if (value != null) {
+                                      appThemeBloc.changeAppTheme.add(value);
+                                      Navigator.of(context).pop();
+                                    }
+                                  },
+                                  child: ListView.builder(
+                                      itemCount: MyConstants.of(context)!
+                                          .appThemes
+                                          .length,
+                                      shrinkWrap: true,
+                                      primary: false,
+                                      itemBuilder: (context, index) {
+                                        String value = MyConstants.of(context)!
+                                            .appThemes[index];
+                                        return RadioListTile<String>(
+                                            activeColor: Theme.of(context)
+                                                .colorScheme
+                                                .primary,
+                                            value: value,
+                                            selected: value == appTheme,
+                                            title: Text(value));
+                                      }),
+                                ),
                               ),
                             ),
                           ),

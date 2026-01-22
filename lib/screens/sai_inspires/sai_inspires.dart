@@ -471,11 +471,14 @@ class _SaiInspires extends State<SaiInspires> {
         } on Exception catch (_) {
           // do nothing
         }
-        Share.shareXFiles([XFile(imageFile!.path)], text: textData);
+        SharePlus.instance.share(ShareParams(
+          files: [XFile(imageFile!.path)],
+          text: textData,
+        ));
       } else {
         // TODO: change from binary to image before sharing for new links
         // share only text if old api is not working
-        Share.share(textData);
+        SharePlus.instance.share(ShareParams(text: textData));
       }
     } else {
       // if there is no data, show snackbar that no data is available

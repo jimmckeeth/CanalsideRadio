@@ -24,8 +24,6 @@ Future<AudioHandler> initAudioService() async {
 class MyAudioHandler extends BaseAudioHandler {
   // audio player uses just_audio
   final _player = AudioPlayer();
-  // playing queue
-  final _queue = ConcatenatingAudioSource(children: []);
   // playing media type
   MediaType? _mediaType = MediaType.radio;
 
@@ -72,7 +70,7 @@ class MyAudioHandler extends BaseAudioHandler {
 
   Future<void> _loadEmptyPlaylist() async {
     try {
-      await _player.setAudioSource(_queue, initialPosition: Duration.zero);
+      await _player.setAudioSources([], initialPosition: Duration.zero);
     } catch (e) {
       // print("Error: $e");
     }
@@ -188,7 +186,7 @@ class MyAudioHandler extends BaseAudioHandler {
   Future<void> addQueueItems(List<MediaItem> mediaItems) async {
     // manage Just Audio
     final audioSource = mediaItems.map(_createAudioSource);
-    _queue.addAll(audioSource.toList());
+    await _player.addAudioSources(audioSource.toList());
 
     // notify system
     final newQueue = queue.value..addAll(mediaItems);
@@ -199,7 +197,7 @@ class MyAudioHandler extends BaseAudioHandler {
   Future<void> addQueueItem(MediaItem mediaItem) async {
     // manage Just Audio
     final audioSource = _createAudioSource(mediaItem);
-    _queue.add(audioSource);
+    await _player.addAudioSource(audioSource);
 
     // notify system
     final newQueue = queue.value..add(mediaItem);
@@ -213,7 +211,7 @@ class MyAudioHandler extends BaseAudioHandler {
   @override
   Future<void> removeQueueItemAt(int index) async {
     // manage Just Audio
-    _queue.removeAt(index);
+    await _player.removeAudioSourceAt(index);
 
     // notify system
     final newQueue = queue.value..removeAt(index);
@@ -233,7 +231,7 @@ class MyAudioHandler extends BaseAudioHandler {
       // clear method is called when starting a new player
       case 'clear':
         _player.pause();
-        await _queue.clear();
+        await _player.clearAudioSources();
         queue.add(queue.value..clear());
         break;
       // init method is called when starting a new player

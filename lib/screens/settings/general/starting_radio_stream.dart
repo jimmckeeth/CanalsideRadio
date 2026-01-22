@@ -65,38 +65,40 @@ class _StartingRadioStream extends State<StartingRadioStream> {
                               radius: const Radius.circular(8),
                               thumbVisibility: true,
                               child: SingleChildScrollView(
-                                child: ListView.builder(
-                                    itemCount: MyConstants.of(context)!
-                                            .radioStreamHttps
-                                            .length +
-                                        1,
-                                    shrinkWrap: true,
-                                    primary: false,
-                                    itemBuilder: (context, index) {
-                                      int value = index - 1;
-                                      return RadioListTile<int>(
-                                          activeColor: Theme.of(context)
-                                              .colorScheme
-                                              .primary,
-                                          value: value,
-                                          selected:
-                                              value == initialRadioStreamIndex,
-                                          title: (value >= 0)
-                                              ? Text(MyConstants.of(context)!
-                                                  .radioStreamHttps
-                                                  .keys
-                                                  .toList()[value])
-                                              : const Text(recentlyPlayed),
-                                          groupValue: initialRadioStreamIndex,
-                                          onChanged: (int? value) {
-                                            if (value != null) {
-                                              initialRadioIndexBloc
-                                                  .changeInitialRadioIndex
-                                                  .add(value);
-                                              Navigator.of(context).pop();
-                                            }
-                                          });
-                                    }),
+                                child: RadioGroup<int>(
+                                  groupValue: initialRadioStreamIndex,
+                                  onChanged: (int? value) {
+                                    if (value != null) {
+                                      initialRadioIndexBloc
+                                          .changeInitialRadioIndex
+                                          .add(value);
+                                      Navigator.of(context).pop();
+                                    }
+                                  },
+                                  child: ListView.builder(
+                                      itemCount: MyConstants.of(context)!
+                                              .radioStreamHttps
+                                              .length +
+                                          1,
+                                      shrinkWrap: true,
+                                      primary: false,
+                                      itemBuilder: (context, index) {
+                                        int value = index - 1;
+                                        return RadioListTile<int>(
+                                            activeColor: Theme.of(context)
+                                                .colorScheme
+                                                .primary,
+                                            value: value,
+                                            selected: value ==
+                                                initialRadioStreamIndex,
+                                            title: (value >= 0)
+                                                ? Text(MyConstants.of(context)!
+                                                    .radioStreamHttps
+                                                    .keys
+                                                    .toList()[value])
+                                                : const Text(recentlyPlayed));
+                                      }),
+                                ),
                               ),
                             ),
                           ),
