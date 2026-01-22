@@ -40,7 +40,7 @@ class _Media extends State<Media> {
 
   /// contains the base url of the downloads page
   final String baseUrl =
-      'https://schedule.sssmediacentre.org/program/Download.php';
+      'https://schedule.example.com/program/Download.php';
 
   /// the url with all the parameters (a unique url)
   String finalUrl = '';
@@ -486,7 +486,6 @@ class _Media extends State<Media> {
   //   Audio Service    //
   // ****************** //
   // Change in radio_home.dart if changed here
-  // Also change in sai_inspires.dart if changed here
 
   /// start the media player
   ///

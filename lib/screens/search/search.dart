@@ -41,9 +41,9 @@ class _Search extends State<Search> {
   /// form data to send to web view after updating url
   late Map<String, String?> globalFormData;
 
-  /// contains the base url of the radio sai search page
+  /// contains the base url of the search page
   final String baseUrl =
-      'https://schedule.sssmediacentre.org/program/SearchProgramme.php';
+      'https://schedule.example.com/program/SearchProgramme.php';
 
   /// the url with all the parameters (a unique url)
   String finalUrl = '';

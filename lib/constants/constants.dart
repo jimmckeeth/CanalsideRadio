@@ -8,7 +8,7 @@ class MyConstants extends InheritedWidget {
 
   const MyConstants({required super.child, super.key});
 
-  /// The list of radio sai stream https source names and links
+  /// The list of stream https source names and links
   final Map<String, String> radioStreamHttps = const {
     'The Canalside Radio': 'https://das-edge63-live365-dal03.cdnstream.com/a62767',
   };
@@ -32,7 +32,7 @@ class MyConstants extends InheritedWidget {
     MenuNavigation.settings: CupertinoIcons.settings,
   };
 
-  /// list of radio streams for radio sai schedule
+  /// list of radio streams for schedule
   final Map<String, int> scheduleStream = const {
     'Prasanthi Stream': 1,
     // 'Africa Stream': 3,

@@ -11,7 +11,7 @@ class RadioIndexBloc {
   final _initialIndexKey = 'initialRadioIndex';
 
   // Initialize the stream for radio index:
-  // index of radio sai streams.
+  // index of streams.
   // Uses, shared preferences to store the stream
   RadioIndexBloc() {
     prefs.then((value) {

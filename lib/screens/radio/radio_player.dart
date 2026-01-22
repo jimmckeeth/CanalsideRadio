@@ -70,6 +70,10 @@ class _RadioPlayer extends State<RadioPlayer>
     // false the value after the build is completed
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       initialBuild = false;
+      // Auto-play radio on launch
+      if (widget.hasInternet == true) {
+        _startRadioPlayer(widget.radioStreamIndex ?? 0, false, true);
+      }
     });
   }
 

@@ -7,7 +7,6 @@ import 'package:radiostream/constants/constants.dart';
 import 'package:radiostream/helper/navigator_helper.dart';
 import 'package:radiostream/screens/audio_archive/audio_archive.dart';
 import 'package:radiostream/screens/radio_schedule/radio_schedule.dart';
-import 'package:radiostream/screens/sai_inspires/sai_inspires.dart';
 import 'package:radiostream/screens/settings/settings.dart';
 
 /// Top Menu - menu bar to show in base page
@@ -47,7 +46,7 @@ class _TopMenu extends State<TopMenu> {
             //         : CupertinoIcons.search),
             //     splashRadius: 24,
             //     iconSize: 30,
-            //     tooltip: 'Search Radio Sai',
+            //     tooltip: 'Search Canalside Radio',
             //     color: Colors.white,
             //     onPressed: () {
             //       Navigator.push(
@@ -105,10 +104,6 @@ class _TopMenu extends State<TopMenu> {
                   },
                   onSelected: (value) {
                     switch (value) {
-                      case MenuNavigation.saiInspires:
-                        getIt<NavigationService>()
-                            .navigateTo(SaiInspires.route);
-                        break;
                       case MenuNavigation.settings:
                         getIt<NavigationService>().navigateTo(Settings.route);
                         break;

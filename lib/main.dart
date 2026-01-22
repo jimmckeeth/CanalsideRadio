@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
     // providers for changing widgets using streams
     return MultiProvider(
       providers: [
-        // stream for radio sai stream index
+        // stream for Canalside Radio stream index
         Provider<RadioIndexBloc>(
           create: (_) => RadioIndexBloc(),
           dispose: (_, RadioIndexBloc radioIndexBloc) =>
@@ -69,7 +69,7 @@ class MyApp extends StatelessWidget {
             return InternetStatus().internetStatusStreamController.stream;
           },
         ),
-        // stream for initial radio sai stream index
+        // stream for initial Canalside Radio stream index
         Provider<InitialRadioIndexBloc>(
           create: (_) => InitialRadioIndexBloc(),
           dispose: (_, InitialRadioIndexBloc initialRadioIndexBloc) =>

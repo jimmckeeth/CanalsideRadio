@@ -52,10 +52,10 @@ class MediaHelper {
     final tempMediaItem = MediaItem(
       // the file name which includes '_' and file extension is id
       id: fileId,
-      album: 'Radio Sai Global Harmony',
+      album: 'The Canalside Radio',
       // name of the file without '_' or extensions
       title: name,
-      artist: 'Radio Sai',
+      artist: 'Canalside Radio',
       // art of the media
       artUri: Uri.parse('file://$path'),
       // extras['uri'] contain the uri of the media

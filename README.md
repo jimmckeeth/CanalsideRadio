@@ -45,8 +45,6 @@ __Split Screen:__ The app is suitable for split screen. Operate this app while d
 
 __Schedule:__ Look at the radio schedule of different streams from within the app. One can see and listen to the different media present in the schedule by clicking one them.
 
-__Sai Inspires:__ Thought of the day by Sai Inspires is present inside the app. One can read it at any text size they want by zooming in. One can also share the content by clicking the copy icon (copies to clipboard). One can also view and save the image.
-
 __Search:__ Searching through out the Radio Sai audio is now possible from the app. Once can search by filtering through category or streamed date. Listening to the audio from the search is also possible now in the app.
 
 __Media Player:__ A new media player which is capable of playing the media seamlessly. Sharing the link to the media, adding/removing from playing queue, shuffling the queue, repeat mode, and other functions are present in the media player. Drawback of the player is the playing queue is cleared when radio is played or when the player is stopped.
@@ -55,7 +53,7 @@ __Free without ads:__ The app is free for all and will remain the same further. 
 
 __Open Source:__ We believe that there is nothing to hide and like you to experience the bliss of Swamy. So, the source code of the app is open-source and will remain the same in future.
 
-__File Permissions:__ File write permission is requested only to save images from Sai Inspires. One can deny these permissions from the settings.
+__File Permissions:__ File write permission is requested only to save images . One can deny these permissions from the settings.
 
 _*Special Thanks to Aman Achutan for the logo_
 
@@ -73,7 +71,6 @@ _*Special Thanks to Aman Achutan for the logo_
 | notifications/control center       | ✔️        | ✔️      |
 | light/dark theme                   | ✔️        | ✔️      |
 | starting with fav stream           | ✔️        | ✔️      |
-| sai inspires share/download        | ✔️        | ✔️      |
 | share media links                  | ✔️        | ✔️      |
 | splash screen/launch screen        | ✔️        | ✔️      |
 | app links                          | ✔️        |        |
@@ -131,7 +128,6 @@ lib
 │   ├───media
 │   ├───media_player
 │   ├───radio
-│   ├───sai_inspires
 │   ├───radio_schedule
 │   └───settings
 │       └───general

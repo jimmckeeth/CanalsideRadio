@@ -31,7 +31,7 @@ class _ScheduleData extends State<ScheduleData> {
 
   final DateTime now = DateTime.now();
 
-  /// date for the radio sai schedule
+  /// date for the schedule
   DateTime? selectedDate;
 
   // below are used to hide/show the selection widget
@@ -43,8 +43,8 @@ class _ScheduleData extends State<ScheduleData> {
   int? oldStreamId = 0;
   final List<int> firstStreamMap = [1, 1, 6, 5];
 
-  /// contains the base url of the radio sai schedule page
-  final String baseUrl = 'https://schedule.sssmediacentre.org/program/';
+  /// contains the base url of the schedule page
+  final String baseUrl = 'https://schedule.example.com/program/';
 
   /// the url with all the parameters (a unique url)
   String finalUrl = '';
