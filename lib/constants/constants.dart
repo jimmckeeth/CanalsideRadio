@@ -79,33 +79,11 @@ class MyConstants extends InheritedWidget {
   /// list of audio archive names and links
   final Map<String, String> audioArchiveLink = const {
     // TODO: these won't be supported in the future, have to remove
-    'Sai Bhajans Karaoke':
-        'https://media.radiosai.org/journals/Archives/Sai-Bhajans_Karaoke-Archive.htm',
-    'Ringtones & Special Audios':
-        'https://media.radiosai.org/journals/Archives/darshan-video/Radio-Sai-Ringtones-and-Devotional-music.htm',
-    'Thursday Live':
-        'https://media.radiosai.org/journals/Archives/thursday_live_archive.htm',
   };
 
   /// list of audio archive names and search parameters
   final Map<String, String> audioArchiveSearch = const {
-    'Musings': 'musings',
-    'Medical Marvels': 'medical marvels',
-    'Service': 'service in the name of sai',
-    'Fleeting Moments Lasting Memories': 'Fleeting Moments Lasting Memories',
-    'Study Circle': 'study circle',
-    'Anecdotes to Awaken': 'Anecdotes to Awaken',
-    'Loving Legend Living Legacies': 'LOVING LEGEND LIVING LEGACIES',
-    'Bhajan Tutor': 'Bhajan Classroom',
-    'Moments of Oneness': 'moments of oneness',
-    'Dramas': 'drama students',
-    'Talks': 'talk prasanthi',
-    'Tales that Transform': 'tales that transform',
-    'Chinna Kathas': 'CK CD',
-    'SSE on Air': 'sse on air',
-    'Matter of Conscience': 'a matter of conscience',
-    'Learning with Love': 'Learning with Love',
-    'Tryst with Divinity': 'tryst with divinity',
+
   };
 
   /// list of app themes

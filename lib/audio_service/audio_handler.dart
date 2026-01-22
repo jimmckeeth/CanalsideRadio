@@ -14,7 +14,7 @@ Future<AudioHandler> initAudioService() async {
     builder: () => MyAudioHandler(),
     config: const AudioServiceConfig(
       androidNotificationChannelId: 'com.thecanalsideradio.radiostream.audio',
-      androidNotificationChannelName: 'Sai Voice',
+      androidNotificationChannelName: 'Canalside Radio',
       androidNotificationOngoing: true,
       androidStopForegroundOnPause: true,
     ),

@@ -12,8 +12,8 @@ enum MediaType {
 
 // Media Helper is useful to handle common methods used by media/media player
 class MediaHelper {
-  /// returns a constant url for media - https://dl.radiosai.org/
-  static String mediaBaseUrl = 'https://dl.radiosai.org/';
+  /// returns a constant url for media - https://thecanalsideradio.com/
+  static String mediaBaseUrl = 'https://thecanalsideradio.com/';
 
   /// returns a file type ".mp3"
   static String mediaFileType = '.mp3';
@@ -72,7 +72,7 @@ class MediaHelper {
   }
 
   /// returns the name of file from the given link
-  /// Example returns "TEST A" when given "https:dl.radiosai.org/TEST_A.mp3"
+  /// Example returns "TEST A" when given "https://www.thecanalsideradio.com/TEST_A.mp3"
   static String getNameFromLink(String link) {
     link = link.replaceAll(mediaBaseUrl, '');
     link = link.replaceAll(mediaFileType, '');
@@ -124,7 +124,7 @@ class MediaHelper {
   /// doesn't care if the directory is created or not
   static Future<String> getDirectoryPath() async {
     final publicDirectoryPath = await _getPublicPath();
-    const albumName = 'Sai Voice';
+    const albumName = 'Canalside Radio';
     final mediaDirectoryPath = '$publicDirectoryPath/$albumName';
     return mediaDirectoryPath;
   }
