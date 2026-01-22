@@ -74,7 +74,7 @@ class _StartingRadioStream extends State<StartingRadioStream> {
                                     primary: false,
                                     itemBuilder: (context, index) {
                                       int value = index - 1;
-                                      return RadioListTile(
+                                      return RadioListTile<int>(
                                           activeColor: Theme.of(context)
                                               .colorScheme
                                               .primary,
@@ -88,11 +88,13 @@ class _StartingRadioStream extends State<StartingRadioStream> {
                                                   .toList()[value])
                                               : const Text(recentlyPlayed),
                                           groupValue: initialRadioStreamIndex,
-                                          onChanged: (dynamic value) {
-                                            initialRadioIndexBloc
-                                                .changeInitialRadioIndex
-                                                .add(value);
-                                            Navigator.of(context).pop();
+                                          onChanged: (int? value) {
+                                            if (value != null) {
+                                              initialRadioIndexBloc
+                                                  .changeInitialRadioIndex
+                                                  .add(value);
+                                              Navigator.of(context).pop();
+                                            }
                                           });
                                     }),
                               ),

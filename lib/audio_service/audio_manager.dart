@@ -7,7 +7,7 @@ import 'package:radiostream/audio_service/notifiers/progress_notifier.dart';
 import 'package:radiostream/audio_service/notifiers/repeat_button_notifier.dart';
 import 'package:radiostream/audio_service/service_locator.dart';
 import 'package:radiostream/helper/media_helper.dart';
-import 'package:rxdart/src/streams/value_stream.dart';
+import 'package:rxdart/rxdart.dart';
 
 class AudioManager {
   // Listeners: Updates going to the UI

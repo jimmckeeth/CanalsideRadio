@@ -12,14 +12,14 @@ class RadioLoadingBloc {
   // sets false as default value
   final _loadingStream = BehaviorSubject<bool?>.seeded(false);
   // returns the stream to update anything based on values changed
-  Stream get radioLoadingStream => _loadingStream.stream;
-  Sink get _addValue => _loadingStream.sink;
+  Stream<bool?> get radioLoadingStream => _loadingStream.stream;
+  Sink<bool?> get _addValue => _loadingStream.sink;
 
-  final StreamController _actionController = StreamController();
+  final StreamController<bool?> _actionController = StreamController<bool?>();
   // call the function changeLoadingState.add(value) to change the value
-  StreamSink get changeLoadingState => _actionController.sink;
+  StreamSink<bool?> get changeLoadingState => _actionController.sink;
 
-  void _changeStream(data) {
+  void _changeStream(bool? data) {
     if (data == null) {
       _loading = false;
     } else {

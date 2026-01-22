@@ -28,15 +28,15 @@ class AppThemeBloc {
   // sets initial theme (system default) as default value
   final _themeStream = BehaviorSubject<String?>.seeded('System default');
   // returns the stream to update anything based on values changed
-  Stream get appThemeStream => _themeStream.stream;
-  Sink get _addValue => _themeStream.sink;
+  Stream<String?> get appThemeStream => _themeStream.stream;
+  Sink<String?> get _addValue => _themeStream.sink;
 
-  final StreamController _actionController = StreamController();
+  final StreamController<String?> _actionController = StreamController<String?>();
   void get resetCount => _actionController.sink.add(null);
   // call the function changeAppTheme.add(value) to change the value
-  StreamSink get changeAppTheme => _actionController.sink;
+  StreamSink<String?> get changeAppTheme => _actionController.sink;
 
-  void _changeStream(data) async {
+  void _changeStream(String? data) async {
     if (data == null) {
       _theme = initialTheme;
     } else {

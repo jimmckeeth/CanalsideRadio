@@ -18,14 +18,14 @@ class MediaScreenBloc {
   // sets false as default value
   final _downloadsStream = BehaviorSubject<bool?>.seeded(false);
   // returns the stream to update anything based on values changed
-  Stream get mediaScreenStream => _downloadsStream.stream;
-  Sink get _addValue => _downloadsStream.sink;
+  Stream<bool?> get mediaScreenStream => _downloadsStream.stream;
+  Sink<bool?> get _addValue => _downloadsStream.sink;
 
-  final StreamController _actionController = StreamController();
+  final StreamController<bool?> _actionController = StreamController<bool?>();
   // call the function changeMediaScreenState.add(value) to change the value
-  StreamSink get changeMediaScreenState => _actionController.sink;
+  StreamSink<bool?> get changeMediaScreenState => _actionController.sink;
 
-  void _changeStream(data) {
+  void _changeStream(bool? data) {
     if (data == null) {
       _changed = false;
     } else {

@@ -88,9 +88,9 @@ class _AudioArchive extends State<AudioArchive> {
       bool isLink = MyConstants.of(
         context,
       )!.audioArchiveLink.containsKey(title);
-      if (isLink) {
+      if (isLink && title != null) {
         // if contains link, launch the url
-        _urlLaunch(MyConstants.of(context)!.audioArchiveLink[title!]);
+        _urlLaunch(MyConstants.of(context)!.audioArchiveLink[title]!);
       } else {
         bool isSearch = MyConstants.of(
           context,
@@ -114,7 +114,7 @@ class _AudioArchive extends State<AudioArchive> {
   }
 
   /// launch the url from url_launcher
-  Future<void> _urlLaunch(urlString) async {
+  Future<void> _urlLaunch(String urlString) async {
     try {
       if (await canLaunchUrl(Uri.parse(urlString))) {
         await launchUrl(Uri.parse(urlString));

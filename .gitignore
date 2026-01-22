@@ -46,3 +46,32 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 /ios/Flutter/ephemeral
+
+# Android related
+**/android/**/gradle-wrapper.jar
+**/android/.gradle
+**/android/captures/
+**/android/gradlew
+**/android/gradlew.bat
+**/android/local.properties
+**/android/key.properties
+**/android/**/generated/
+**/android/**/mapbox_access_token
+
+# iOS/macOS related
+**/ios/**/Flutter/Generated.xcconfig
+**/ios/**/Flutter/flutter_export_environment.sh
+**/ios/ServiceDefinitions.json
+**/ios/Runner/GeneratedPluginRegistrant.*
+
+# Windows related
+**/windows/flutter/ephemeral/
+
+# Linux related
+**/linux/flutter/ephemeral/
+
+# macOS related
+**/macos/flutter/ephemeral/
+
+# Coverage
+coverage/

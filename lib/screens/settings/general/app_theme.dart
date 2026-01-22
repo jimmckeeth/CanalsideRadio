@@ -56,7 +56,7 @@ class _AppTheme extends State<AppTheme> {
                                     itemBuilder: (context, index) {
                                       String value = MyConstants.of(context)!
                                           .appThemes[index];
-                                      return RadioListTile(
+                                      return RadioListTile<String>(
                                           activeColor: Theme.of(context)
                                               .colorScheme
                                               .primary,
@@ -64,10 +64,12 @@ class _AppTheme extends State<AppTheme> {
                                           selected: value == appTheme,
                                           title: Text(value),
                                           groupValue: appTheme,
-                                          onChanged: (dynamic value) {
-                                            appThemeBloc.changeAppTheme
-                                                .add(value);
-                                            Navigator.of(context).pop();
+                                          onChanged: (String? value) {
+                                            if (value != null) {
+                                              appThemeBloc.changeAppTheme
+                                                  .add(value);
+                                              Navigator.of(context).pop();
+                                            }
                                           });
                                     }),
                               ),

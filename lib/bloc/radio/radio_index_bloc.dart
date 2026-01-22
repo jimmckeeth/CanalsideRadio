@@ -47,15 +47,15 @@ class RadioIndexBloc {
   // sets 0 as default value
   final _indexStream = BehaviorSubject<int?>.seeded(0);
   // returns the stream to update anything based on values changed
-  Stream get radioIndexStream => _indexStream.stream;
-  Sink get _addValue => _indexStream.sink;
+  Stream<int?> get radioIndexStream => _indexStream.stream;
+  Sink<int?> get _addValue => _indexStream.sink;
 
-  final StreamController _actionController = StreamController();
+  final StreamController<int?> _actionController = StreamController<int?>();
   void get resetCount => _actionController.sink.add(null);
   // call the function changeRadioIndex.add(value) to change the value
-  StreamSink get changeRadioIndex => _actionController.sink;
+  StreamSink<int?> get changeRadioIndex => _actionController.sink;
 
-  void _changeStream(data) async {
+  void _changeStream(int? data) async {
     if (data == null) {
       _index = 0;
     } else {
