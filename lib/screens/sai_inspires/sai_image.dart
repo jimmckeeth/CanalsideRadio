@@ -8,8 +8,8 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:image_gallery_saver_plus/image_gallery_saver_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:radiosai/audio_service/service_locator.dart';
-import 'package:radiosai/helper/scaffold_helper.dart';
+import 'package:radiostream/audio_service/service_locator.dart';
+import 'package:radiostream/helper/scaffold_helper.dart';
 
 class SaiImage extends StatefulWidget {
   const SaiImage({

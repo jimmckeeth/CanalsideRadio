@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:radiosai/audio_service/service_locator.dart';
-import 'package:radiosai/helper/scaffold_helper.dart';
-import 'package:radiosai/screens/radio/radio_home.dart';
-import 'package:radiosai/widgets/top_media_player.dart';
-import 'package:radiosai/widgets/top_menu.dart';
+import 'package:radiostream/audio_service/service_locator.dart';
+import 'package:radiostream/helper/scaffold_helper.dart';
+import 'package:radiostream/screens/radio/radio_home.dart';
+import 'package:radiostream/widgets/top_media_player.dart';
+import 'package:radiostream/widgets/top_menu.dart';
 
 class Home extends StatefulWidget {
   const Home({

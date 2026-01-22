@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:radiosai/bloc/settings/app_theme_bloc.dart';
-import 'package:radiosai/constants/constants.dart';
+import 'package:radiostream/bloc/settings/app_theme_bloc.dart';
+import 'package:radiostream/constants/constants.dart';
 
 /// App Theme - option to change the app theme
 class AppTheme extends StatefulWidget {

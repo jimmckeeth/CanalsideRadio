@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:radiosai/bloc/radio/radio_index_bloc.dart';
-import 'package:radiosai/widgets/radio/slider_handle.dart';
+import 'package:radiostream/bloc/radio/radio_index_bloc.dart';
+import 'package:radiostream/widgets/radio/slider_handle.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:radiosai/constants/constants.dart';
+import 'package:radiostream/constants/constants.dart';
 
 class RadioStreamSelect extends StatefulWidget {
   const RadioStreamSelect({

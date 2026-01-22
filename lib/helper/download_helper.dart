@@ -4,8 +4,8 @@ import 'dart:ui';
 // import 'package:audio_service/audio_service.dart';
 // import 'package:flutter/material.dart';
 // import 'package:flutter_downloader/flutter_downloader.dart';
-import 'package:radiosai/bloc/media/media_screen_bloc.dart';
-// import 'package:radiosai/helper/media_helper.dart';
+import 'package:radiostream/bloc/media/media_screen_bloc.dart';
+// import 'package:radiostream/helper/media_helper.dart';
 
 class DownloadHelper {
   static List<DownloadTaskInfo> downloadTasks = [];

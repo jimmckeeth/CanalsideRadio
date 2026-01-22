@@ -10,10 +10,10 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:html/parser.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:radiosai/constants/constants.dart';
-import 'package:radiosai/screens/radio_schedule/schedule_entity.dart';
-import 'package:radiosai/widgets/bottom_media_player.dart';
-import 'package:radiosai/widgets/no_data.dart';
+import 'package:radiostream/constants/constants.dart';
+import 'package:radiostream/screens/radio_schedule/schedule_entity.dart';
+import 'package:radiostream/widgets/bottom_media_player.dart';
+import 'package:radiostream/widgets/no_data.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ScheduleData extends StatefulWidget {

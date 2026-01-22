@@ -11,17 +11,17 @@ import 'package:http/http.dart' as http;
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 // import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
-import 'package:radiosai/audio_service/audio_manager.dart';
-import 'package:radiosai/audio_service/notifiers/play_button_notifier.dart';
-import 'package:radiosai/audio_service/service_locator.dart';
-import 'package:radiosai/bloc/media/media_screen_bloc.dart';
-// import 'package:radiosai/helper/download_helper.dart';
-import 'package:radiosai/helper/media_helper.dart';
-import 'package:radiosai/helper/navigator_helper.dart';
-import 'package:radiosai/helper/scaffold_helper.dart';
-import 'package:radiosai/screens/media_player/media_player.dart';
-import 'package:radiosai/widgets/bottom_media_player.dart';
-import 'package:radiosai/widgets/no_data.dart';
+import 'package:radiostream/audio_service/audio_manager.dart';
+import 'package:radiostream/audio_service/notifiers/play_button_notifier.dart';
+import 'package:radiostream/audio_service/service_locator.dart';
+import 'package:radiostream/bloc/media/media_screen_bloc.dart';
+// import 'package:radiostream/helper/download_helper.dart';
+import 'package:radiostream/helper/media_helper.dart';
+import 'package:radiostream/helper/navigator_helper.dart';
+import 'package:radiostream/helper/scaffold_helper.dart';
+import 'package:radiostream/screens/media_player/media_player.dart';
+import 'package:radiostream/widgets/bottom_media_player.dart';
+import 'package:radiostream/widgets/no_data.dart';
 import 'package:shimmer/shimmer.dart';
 
 class Media extends StatefulWidget {

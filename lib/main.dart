@@ -3,20 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart'
     as iccp;
 import 'package:provider/provider.dart';
-import 'package:radiosai/audio_service/service_locator.dart';
-import 'package:radiosai/bloc/internet_status.dart';
-import 'package:radiosai/bloc/media/media_screen_bloc.dart';
-import 'package:radiosai/bloc/radio/radio_index_bloc.dart';
-import 'package:radiosai/bloc/radio/radio_loading_bloc.dart';
-import 'package:radiosai/bloc/settings/app_theme_bloc.dart';
-import 'package:radiosai/bloc/settings/initial_radio_index_bloc.dart';
-import 'package:radiosai/constants/constants.dart';
-import 'package:radiosai/helper/download_helper.dart';
-import 'package:radiosai/helper/navigator_helper.dart';
-import 'package:radiosai/screens/home.dart';
-import 'package:radiosai/screens/media_player/media_player.dart';
-import 'package:radiosai/screens/media_player/playing_queue.dart';
-import 'package:radiosai/screens/settings/settings.dart';
+import 'package:radiostream/audio_service/service_locator.dart';
+import 'package:radiostream/bloc/internet_status.dart';
+import 'package:radiostream/bloc/media/media_screen_bloc.dart';
+import 'package:radiostream/bloc/radio/radio_index_bloc.dart';
+import 'package:radiostream/bloc/radio/radio_loading_bloc.dart';
+import 'package:radiostream/bloc/settings/app_theme_bloc.dart';
+import 'package:radiostream/bloc/settings/initial_radio_index_bloc.dart';
+import 'package:radiostream/constants/constants.dart';
+import 'package:radiostream/helper/download_helper.dart';
+import 'package:radiostream/helper/navigator_helper.dart';
+import 'package:radiostream/screens/home.dart';
+import 'package:radiostream/screens/media_player/media_player.dart';
+import 'package:radiostream/screens/media_player/playing_queue.dart';
+import 'package:radiostream/screens/settings/settings.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

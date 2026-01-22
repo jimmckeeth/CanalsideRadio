@@ -9,17 +9,17 @@ import 'package:flutter/services.dart';
 // import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:radiosai/audio_service/audio_manager.dart';
-import 'package:radiosai/audio_service/notifiers/loading_notifier.dart';
-import 'package:radiosai/audio_service/notifiers/play_button_notifier.dart';
-import 'package:radiosai/audio_service/notifiers/progress_notifier.dart';
-import 'package:radiosai/audio_service/notifiers/repeat_button_notifier.dart';
-import 'package:radiosai/audio_service/service_locator.dart';
-import 'package:radiosai/helper/download_helper.dart';
-import 'package:radiosai/helper/media_helper.dart';
-import 'package:radiosai/helper/navigator_helper.dart';
-import 'package:radiosai/helper/scaffold_helper.dart';
-import 'package:radiosai/screens/media_player/playing_queue.dart';
+import 'package:radiostream/audio_service/audio_manager.dart';
+import 'package:radiostream/audio_service/notifiers/loading_notifier.dart';
+import 'package:radiostream/audio_service/notifiers/play_button_notifier.dart';
+import 'package:radiostream/audio_service/notifiers/progress_notifier.dart';
+import 'package:radiostream/audio_service/notifiers/repeat_button_notifier.dart';
+import 'package:radiostream/audio_service/service_locator.dart';
+import 'package:radiostream/helper/download_helper.dart';
+import 'package:radiostream/helper/media_helper.dart';
+import 'package:radiostream/helper/navigator_helper.dart';
+import 'package:radiostream/helper/scaffold_helper.dart';
+import 'package:radiostream/screens/media_player/playing_queue.dart';
 import 'package:share_plus/share_plus.dart';
 
 class MediaPlayer extends StatefulWidget {
@@ -614,7 +614,7 @@ class _MediaPlayer extends State<MediaPlayer> {
     String text =
         '$fileLink'
         '\n\nShared from Sai Voice App\n'
-        'https://radiosai.immadisairaj.dev';
+        'https://thecanalsideradio.com';
     Share.share(text, subject: subject);
   }
 

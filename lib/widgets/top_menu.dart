@@ -2,13 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:radiosai/audio_service/service_locator.dart';
-import 'package:radiosai/constants/constants.dart';
-import 'package:radiosai/helper/navigator_helper.dart';
-import 'package:radiosai/screens/audio_archive/audio_archive.dart';
-import 'package:radiosai/screens/radio_schedule/radio_schedule.dart';
-import 'package:radiosai/screens/sai_inspires/sai_inspires.dart';
-import 'package:radiosai/screens/settings/settings.dart';
+import 'package:radiostream/audio_service/service_locator.dart';
+import 'package:radiostream/constants/constants.dart';
+import 'package:radiostream/helper/navigator_helper.dart';
+import 'package:radiostream/screens/audio_archive/audio_archive.dart';
+import 'package:radiostream/screens/radio_schedule/radio_schedule.dart';
+import 'package:radiostream/screens/sai_inspires/sai_inspires.dart';
+import 'package:radiostream/screens/settings/settings.dart';
 
 /// Top Menu - menu bar to show in base page
 ///

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:radiosai/constants/constants.dart';
-import 'package:radiosai/screens/media/media.dart';
-import 'package:radiosai/screens/search/search.dart';
-import 'package:radiosai/widgets/bottom_media_player.dart';
+import 'package:radiostream/constants/constants.dart';
+import 'package:radiostream/screens/media/media.dart';
+import 'package:radiostream/screens/search/search.dart';
+import 'package:radiostream/widgets/bottom_media_player.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AudioArchive extends StatefulWidget {

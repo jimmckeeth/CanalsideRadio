@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:radiosai/audio_service/audio_manager.dart';
-import 'package:radiosai/audio_service/notifiers/play_button_notifier.dart';
-import 'package:radiosai/audio_service/service_locator.dart';
+import 'package:radiostream/audio_service/audio_manager.dart';
+import 'package:radiostream/audio_service/notifiers/play_button_notifier.dart';
+import 'package:radiostream/audio_service/service_locator.dart';
 
 class PlayingQueue extends StatefulWidget {
   const PlayingQueue({

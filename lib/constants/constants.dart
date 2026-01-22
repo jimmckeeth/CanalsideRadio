@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:radiosai/helper/navigator_helper.dart';
+import 'package:radiostream/helper/navigator_helper.dart';
 
 class MyConstants extends InheritedWidget {
   static MyConstants? of(BuildContext context) =>

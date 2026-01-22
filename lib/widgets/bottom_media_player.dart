@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:radiosai/audio_service/audio_manager.dart';
-import 'package:radiosai/audio_service/notifiers/play_button_notifier.dart';
-import 'package:radiosai/audio_service/service_locator.dart';
-import 'package:radiosai/helper/media_helper.dart';
-import 'package:radiosai/helper/navigator_helper.dart';
-import 'package:radiosai/screens/media_player/media_player.dart';
+import 'package:radiostream/audio_service/audio_manager.dart';
+import 'package:radiostream/audio_service/notifiers/play_button_notifier.dart';
+import 'package:radiostream/audio_service/service_locator.dart';
+import 'package:radiostream/helper/media_helper.dart';
+import 'package:radiostream/helper/navigator_helper.dart';
+import 'package:radiostream/screens/media_player/media_player.dart';
 
 /// Bottom Media Player -
 /// media player to be attached in the bottomNavigationBar

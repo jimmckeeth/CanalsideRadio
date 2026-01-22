@@ -1,12 +1,12 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/foundation.dart';
-import 'package:radiosai/audio_service/notifiers/loading_notifier.dart';
-import 'package:radiosai/audio_service/notifiers/media_type_notifier.dart';
-import 'package:radiosai/audio_service/notifiers/play_button_notifier.dart';
-import 'package:radiosai/audio_service/notifiers/progress_notifier.dart';
-import 'package:radiosai/audio_service/notifiers/repeat_button_notifier.dart';
-import 'package:radiosai/audio_service/service_locator.dart';
-import 'package:radiosai/helper/media_helper.dart';
+import 'package:radiostream/audio_service/notifiers/loading_notifier.dart';
+import 'package:radiostream/audio_service/notifiers/media_type_notifier.dart';
+import 'package:radiostream/audio_service/notifiers/play_button_notifier.dart';
+import 'package:radiostream/audio_service/notifiers/progress_notifier.dart';
+import 'package:radiostream/audio_service/notifiers/repeat_button_notifier.dart';
+import 'package:radiostream/audio_service/service_locator.dart';
+import 'package:radiostream/helper/media_helper.dart';
 import 'package:rxdart/src/streams/value_stream.dart';
 
 class AudioManager {

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
-import 'package:radiosai/bloc/radio/radio_index_bloc.dart';
-import 'package:radiosai/screens/radio_schedule/schedule_data.dart';
+import 'package:radiostream/bloc/radio/radio_index_bloc.dart';
+import 'package:radiostream/screens/radio_schedule/schedule_data.dart';
 
 class RadioSchedule extends StatefulWidget {
   const RadioSchedule({

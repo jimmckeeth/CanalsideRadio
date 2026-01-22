@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:radiosai/audio_service/audio_manager.dart';
-import 'package:radiosai/audio_service/notifiers/loading_notifier.dart';
-import 'package:radiosai/audio_service/service_locator.dart';
-import 'package:radiosai/bloc/radio/radio_loading_bloc.dart';
-import 'package:radiosai/constants/constants.dart';
-import 'package:radiosai/helper/media_helper.dart';
-import 'package:radiosai/screens/radio/radio_stream_select.dart';
-import 'package:radiosai/widgets/internet_alert.dart';
-import 'package:radiosai/widgets/radio/slider_handle.dart';
+import 'package:radiostream/audio_service/audio_manager.dart';
+import 'package:radiostream/audio_service/notifiers/loading_notifier.dart';
+import 'package:radiostream/audio_service/service_locator.dart';
+import 'package:radiostream/bloc/radio/radio_loading_bloc.dart';
+import 'package:radiostream/constants/constants.dart';
+import 'package:radiostream/helper/media_helper.dart';
+import 'package:radiostream/screens/radio/radio_stream_select.dart';
+import 'package:radiostream/widgets/internet_alert.dart';
+import 'package:radiostream/widgets/radio/slider_handle.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class RadioPlayer extends StatefulWidget {
@@ -119,7 +119,7 @@ class _RadioPlayer extends State<RadioPlayer>
           // sends the app to background when backpress on home screen
           // achieved by adding a method in MainActivity.kt to support send app to background
           toPop = await const MethodChannel(
-            'com.immadisairaj/android_app_retain',
+            'com.thecanalsideradio.radiostream/android_app_retain',
           ).invokeMethod('sendToBackground').then((value) => value as bool);
         }
 

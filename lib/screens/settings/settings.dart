@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:radiosai/screens/settings/general/app_theme.dart';
-import 'package:radiosai/widgets/settings/settings_section.dart';
+import 'package:radiostream/screens/settings/general/app_theme.dart';
+import 'package:radiostream/widgets/settings/settings_section.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Settings extends StatefulWidget {

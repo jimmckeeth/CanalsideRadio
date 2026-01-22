@@ -9,11 +9,11 @@ import 'package:html/parser.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:radiosai/audio_service/service_locator.dart';
-import 'package:radiosai/helper/scaffold_helper.dart';
-import 'package:radiosai/screens/media/media.dart';
-import 'package:radiosai/widgets/bottom_media_player.dart';
-import 'package:radiosai/widgets/no_data.dart';
+import 'package:radiostream/audio_service/service_locator.dart';
+import 'package:radiostream/helper/scaffold_helper.dart';
+import 'package:radiostream/screens/media/media.dart';
+import 'package:radiostream/widgets/bottom_media_player.dart';
+import 'package:radiostream/widgets/no_data.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 

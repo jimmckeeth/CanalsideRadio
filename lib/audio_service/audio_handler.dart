@@ -1,10 +1,10 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:radiosai/audio_service/service_locator.dart';
-import 'package:radiosai/helper/media_helper.dart';
-import 'package:radiosai/helper/navigator_helper.dart';
-import 'package:radiosai/screens/media_player/media_player.dart';
-import 'package:radiosai/screens/media_player/playing_queue.dart';
+import 'package:radiostream/audio_service/service_locator.dart';
+import 'package:radiostream/helper/media_helper.dart';
+import 'package:radiostream/helper/navigator_helper.dart';
+import 'package:radiostream/screens/media_player/media_player.dart';
+import 'package:radiostream/screens/media_player/playing_queue.dart';
 
 // copied and changed from
 // https://github.com/suragch/flutter_audio_service_demo/
@@ -13,7 +13,7 @@ Future<AudioHandler> initAudioService() async {
   return await AudioService.init(
     builder: () => MyAudioHandler(),
     config: const AudioServiceConfig(
-      androidNotificationChannelId: 'com.immadisairaj.radiosai.audio',
+      androidNotificationChannelId: 'com.thecanalsideradio.radiostream.audio',
       androidNotificationChannelName: 'Sai Voice',
       androidNotificationOngoing: true,
       androidStopForegroundOnPause: true,

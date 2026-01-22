@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:radiosai/helper/media_helper.dart';
+import 'package:radiostream/helper/media_helper.dart';
 
 class MediaTypeNotifier extends ValueNotifier<MediaType> {
   MediaTypeNotifier() : super(_initialValue);

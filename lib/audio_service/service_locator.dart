@@ -1,9 +1,9 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:get_it/get_it.dart';
-import 'package:radiosai/audio_service/audio_handler.dart';
-import 'package:radiosai/audio_service/audio_manager.dart';
-import 'package:radiosai/helper/navigator_helper.dart';
-import 'package:radiosai/helper/scaffold_helper.dart';
+import 'package:radiostream/audio_service/audio_handler.dart';
+import 'package:radiostream/audio_service/audio_manager.dart';
+import 'package:radiostream/helper/navigator_helper.dart';
+import 'package:radiostream/helper/scaffold_helper.dart';
 
 GetIt getIt = GetIt.instance;
 
