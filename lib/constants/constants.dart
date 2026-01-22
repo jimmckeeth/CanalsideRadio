@@ -10,45 +10,25 @@ class MyConstants extends InheritedWidget {
 
   /// The list of radio sai stream https source names and links
   final Map<String, String> radioStreamHttps = const {
-    'Prasanthi Stream': 'https://stream.sssmediacentre.org:8443/asia',
-    // 'Africa Stream': 'https://stream.sssmediacentre.org:8443/afri',
-    // 'America Stream': 'https://stream.sssmediacentre.org:8443/ameri',
-    'Bhajan Stream': 'https://stream.sssmediacentre.org:8443/bhajan',
-    'Discourse Stream': 'https://stream.sssmediacentre.org:8443/discourse',
-    'Telugu Stream': 'https://stream.sssmediacentre.org:8443/telugu'
+    'The Canalside Radio': 'https://das-edge63-live365-dal03.cdnstream.com/a62767',
   };
 
   final Map<String, String> radioStreamImages = const {
-    'Prasanthi Stream':
-        'https://radiosai.immadisairaj.dev/images/prasanthiStream.png',
-    'Bhajan Stream':
-        'https://radiosai.immadisairaj.dev/images/bhajanStream.png',
-    'Discourse Stream':
-        'https://radiosai.immadisairaj.dev/images/discourseStream.png',
-    'Telugu Stream': 'https://radiosai.immadisairaj.dev/images/teluguStream.png'
+    'The Canalside Radio': '',
   };
 
   /// The list of items in the top menu bar
   final Map<dynamic, String> menuTitles = const {
-    MenuNavigation.schedule: 'Schedule',
-    MenuNavigation.saiInspires: 'Sai Inspires',
-    // MenuNavigation.audio: 'Audio',
     MenuNavigation.settings: 'Settings',
   };
 
   /// The list of android icons in the top menu bar
   final Map<dynamic, IconData> menuTitleAndroidIcons = const {
-    MenuNavigation.schedule: Icons.schedule_outlined,
-    MenuNavigation.saiInspires: Icons.text_snippet_outlined,
-    MenuNavigation.audio: Icons.library_music_outlined,
     MenuNavigation.settings: Icons.settings_outlined,
   };
 
   /// The list of ios icons in the top menu bar
   final Map<dynamic, IconData> menuTitleIosIcons = const {
-    MenuNavigation.schedule: CupertinoIcons.time,
-    MenuNavigation.saiInspires: CupertinoIcons.text_quote,
-    MenuNavigation.audio: CupertinoIcons.music_albums,
     MenuNavigation.settings: CupertinoIcons.settings,
   };
 

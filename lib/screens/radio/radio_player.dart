@@ -106,6 +106,9 @@ class _RadioPlayer extends State<RadioPlayer>
     bool isBigScreen = (height * 0.1 >= 50); // 3/4 screen
     bool isBiggerScreen = (height * 0.1 >= 70); // full screen
     bool isSmallerScreen = (height * 0.1 < 30); // 1/4 screen
+
+    bool multiStream = MyConstants.of(context)!.radioStreamHttps.length > 1;
+
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (_, _) async {
@@ -133,10 +136,12 @@ class _RadioPlayer extends State<RadioPlayer>
               borderRadius: BorderRadius.all(widget.radius!),
               backdropEnabled: true,
               controller: _panelController,
-              minHeight: height * 0.1,
+              minHeight: multiStream ? height * 0.1 : 0,
               // remove the collapsed widget if the height is small (below 2 lines)
-              collapsed: isBigScreen
-                  ? _slidingPanelCollapsed(widget.radius)
+              collapsed: multiStream
+                  ? (isBigScreen
+                      ? _slidingPanelCollapsed(widget.radius)
+                      : null)
                   : null,
               renderPanelSheet: false,
               // handle the height of the panel for different sizes
@@ -145,7 +150,7 @@ class _RadioPlayer extends State<RadioPlayer>
                   ? (isBiggerScreen ? height * 0.38 : height * 0.4)
                   : height * 0.45,
               // remove panel if small screen
-              panel: isSmallerScreen
+              panel: (isSmallerScreen || !multiStream)
                   ? Container()
                   : RadioStreamSelect(
                       panelController: _panelController,
@@ -154,6 +159,7 @@ class _RadioPlayer extends State<RadioPlayer>
               body: GestureDetector(
                 // swipe the panel when swiping from anywhere in the screen
                 onVerticalDragUpdate: (details) {
+                  if (!multiStream) return;
                   int sensitivity = 8;
                   if (details.delta.dy < -sensitivity) {
                     if (!isSmallerScreen) {

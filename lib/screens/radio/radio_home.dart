@@ -68,10 +68,14 @@ class _RadioHome extends State<RadioHome> {
             SizedBox(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              child: const Image(
-                fit: BoxFit.cover,
-                alignment: Alignment(0, -1),
-                image: AssetImage('assets/sai_listens.jpg'),
+              child: Container(
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [Colors.blue, Colors.cyan],
+                  ),
+                ),
               ),
             ),
             // Container to reduce the brightness of background pic

@@ -13,12 +13,9 @@ import 'package:radiosai/bloc/settings/initial_radio_index_bloc.dart';
 import 'package:radiosai/constants/constants.dart';
 import 'package:radiosai/helper/download_helper.dart';
 import 'package:radiosai/helper/navigator_helper.dart';
-import 'package:radiosai/screens/audio_archive/audio_archive.dart';
 import 'package:radiosai/screens/home.dart';
 import 'package:radiosai/screens/media_player/media_player.dart';
 import 'package:radiosai/screens/media_player/playing_queue.dart';
-import 'package:radiosai/screens/radio_schedule/radio_schedule.dart';
-import 'package:radiosai/screens/sai_inspires/sai_inspires.dart';
 import 'package:radiosai/screens/settings/settings.dart';
 
 void main() async {
@@ -37,12 +34,12 @@ void main() async {
 class MyApp extends StatelessWidget {
   final ThemeData lightTheme = ThemeData(
     useMaterial3: true,
-    colorSchemeSeed: Colors.deepOrange,
+    colorSchemeSeed: Colors.blue,
   );
 
   final ThemeData darkTheme = ThemeData(
     useMaterial3: true,
-    colorSchemeSeed: Colors.deepOrange,
+    colorSchemeSeed: Colors.blue,
     brightness: Brightness.dark,
   );
 
@@ -107,7 +104,7 @@ class MyApp extends StatelessWidget {
                   appTheme == MyConstants.of(context)!.appThemes[1];
 
               return MaterialApp(
-                title: 'Sai Voice',
+                title: 'The Canalside Radio',
                 debugShowCheckedModeBanner: false,
                 themeMode: isSystemDefault
                     ? ThemeMode.system
@@ -119,10 +116,7 @@ class MyApp extends StatelessWidget {
                 routes: {
                   MediaPlayer.route: (context) => const MediaPlayer(),
                   PlayingQueue.route: (context) => const PlayingQueue(),
-                  AudioArchive.route: (context) => const AudioArchive(),
-                  SaiInspires.route: (context) => const SaiInspires(),
                   Settings.route: (context) => const Settings(),
-                  RadioSchedule.route: (context) => const RadioSchedule(),
                 },
               );
             });
