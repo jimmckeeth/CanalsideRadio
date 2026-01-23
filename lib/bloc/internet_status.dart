@@ -19,6 +19,15 @@ class InternetStatus {
     });
   }
 
+  Future<void> checkConnection() async {
+    bool hasAccess = await iccp.InternetConnection().hasInternetAccess;
+    if (hasAccess) {
+      internetStatusStreamController.add(iccp.InternetStatus.connected);
+    } else {
+      internetStatusStreamController.add(iccp.InternetStatus.disconnected);
+    }
+  }
+
   void cancelListener() {
     listener.cancel();
   }

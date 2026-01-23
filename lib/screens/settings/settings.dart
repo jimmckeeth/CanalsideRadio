@@ -131,6 +131,20 @@ class _Settings extends State<Settings> {
               );
             },
           ),
+          ListBody(
+            children: const [
+              Padding(
+                padding:
+                    EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+                child: Text(
+                  'This app uses open source software packages. '
+                  'To view the full license text of each package, '
+                  'please visit the Open source licenses section.',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
+            ],
+          ),
           ListTile(
             contentPadding: _contentPadding,
             title: const Text('Version'),

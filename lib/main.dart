@@ -66,7 +66,7 @@ class MyApp extends StatelessWidget {
         StreamProvider<iccp.InternetStatus>(
           initialData: iccp.InternetStatus.connected,
           create: (context) {
-            return InternetStatus().internetStatusStreamController.stream;
+            return getIt<InternetStatus>().internetStatusStreamController.stream;
           },
         ),
         // stream for initial Canalside Radio stream index

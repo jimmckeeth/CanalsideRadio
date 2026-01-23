@@ -2,6 +2,7 @@ import 'package:audio_service/audio_service.dart';
 import 'package:get_it/get_it.dart';
 import 'package:radiostream/audio_service/audio_handler.dart';
 import 'package:radiostream/audio_service/audio_manager.dart';
+import 'package:radiostream/bloc/internet_status.dart';
 import 'package:radiostream/helper/navigator_helper.dart';
 import 'package:radiostream/helper/scaffold_helper.dart';
 
@@ -13,6 +14,9 @@ Future<void> setupServiceLocator() async {
 
   // audio manager
   getIt.registerLazySingleton<AudioManager>(() => AudioManager());
+
+  // internet status
+  getIt.registerLazySingleton<InternetStatus>(() => InternetStatus());
 
   // global navigator
   getIt.registerLazySingleton(() => NavigationService());
