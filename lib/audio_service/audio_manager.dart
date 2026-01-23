@@ -78,13 +78,13 @@ class AudioManager {
     // String path = await MediaHelper.getDefaultNotificationImage();
     String key = radioStream.keys.toList()[index];
     String value = radioStream.values.toList()[index];
-    String artUri = artLinks.values.toList()[index];
+    String artUriString = artLinks.values.toList()[index];
     return MediaItem(
       id: key,
       title: key,
       album: 'Canalside Radio',
       artist: 'Canalside Radio',
-      artUri: Uri.parse(artUri),
+      artUri: artUriString.isNotEmpty ? Uri.parse(artUriString) : null,
       // artUri: Uri.parse('file://$path'),
       extras: {'uri': value},
     );
