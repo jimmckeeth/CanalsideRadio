@@ -52,7 +52,6 @@
             </intent-filter>
 
         </activity>
-        <service android:name=".core.StreamingCore" />
 
         <!-- Audio Service plugin -->
         <service
