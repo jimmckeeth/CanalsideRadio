@@ -185,11 +185,22 @@ class MyAudioHandler extends BaseAudioHandler {
   @override
   Future<void> addQueueItems(List<MediaItem> mediaItems) async {
     // manage Just Audio
-    final audioSource = mediaItems.map(_createAudioSource);
-    await _player.addAudioSources(audioSource.toList());
+    final audioSources = <AudioSource>[];
+    final validMediaItems = <MediaItem>[];
+    for (var item in mediaItems) {
+      final source = _createAudioSource(item);
+      if (source != null) {
+        audioSources.add(source);
+        validMediaItems.add(item);
+      }
+    }
+
+    if (audioSources.isEmpty) return;
+
+    await _player.addAudioSources(audioSources);
 
     // notify system
-    final newQueue = queue.value..addAll(mediaItems);
+    final newQueue = queue.value..addAll(validMediaItems);
     queue.add(newQueue);
   }
 
@@ -197,6 +208,7 @@ class MyAudioHandler extends BaseAudioHandler {
   Future<void> addQueueItem(MediaItem mediaItem) async {
     // manage Just Audio
     final audioSource = _createAudioSource(mediaItem);
+    if (audioSource == null) return;
     await _player.addAudioSource(audioSource);
 
     // notify system
@@ -204,8 +216,26 @@ class MyAudioHandler extends BaseAudioHandler {
     queue.add(newQueue);
   }
 
-  UriAudioSource _createAudioSource(MediaItem mediaItem) {
-    return AudioSource.uri(Uri.parse(mediaItem.extras!['uri']), tag: mediaItem);
+  UriAudioSource? _createAudioSource(MediaItem mediaItem) {
+    final uriString = mediaItem.extras?['uri'] as String?;
+    if (uriString == null || uriString.isEmpty) {
+      return null;
+    }
+    try {
+      var uri = Uri.parse(uriString);
+      if (!uri.isAbsolute) {
+        // A schemeless URI with an authority part is likely a web address.
+        if (uri.hasAuthority) {
+          uri = Uri.parse('http://$uriString');
+        } else {
+          // Otherwise it's probably a relative file path, which we can't handle.
+          return null;
+        }
+      }
+      return AudioSource.uri(uri, tag: mediaItem);
+    } catch (e) {
+      return null;
+    }
   }
 
   @override
