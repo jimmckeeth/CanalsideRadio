@@ -1,7 +1,6 @@
 # GNU General Public License
 
-_Version 3, 29 June 2007_  
-_Copyright © 2007 Free Software Foundation, Inc. &lt;<http://fsf.org/>&gt;_
+_Version 3, 29 June 2007_ — _Copyright © 2007 Free Software Foundation, Inc. &lt;<http://fsf.org/>&gt;_
 
 Everyone is permitted to copy and distribute verbatim copies of this license
 document, but changing it is not allowed.
@@ -209,7 +208,7 @@ Appropriate Legal Notices, your work need not make them do so.
 A compilation of a covered work with other separate and independent works, which are
 not by their nature extensions of the covered work, and which are not combined with
 it such as to form a larger program, in or on a volume of a storage or distribution
-medium, is called an “aggregate” if the compilation and its resulting
+medium, is called an _“aggregate”_ if the compilation and its resulting
 copyright are not used to limit the access or legal rights of the compilation's users
 beyond what the individual works permit. Inclusion of a covered work in an aggregate
 does not cause this License to apply to the other parts of the aggregate.
@@ -312,8 +311,7 @@ Notwithstanding any other provision of this License, for material you add to a
 covered work, you may (if authorized by the copyright holders of that material)
 supplement the terms of this License with terms:
 
-* **a)** Disclaiming warranty or limiting liability differently from the terms of
-__ and 16__ of this License; or
+* **a)** Disclaiming warranty or limiting liability differently from the terms of __ and 16__ of this License; or
 * **b)** Requiring preservation of specified reasonable legal notices or author
 attributions in that material or in the Appropriate Legal Notices displayed by works
 containing it; or
@@ -329,8 +327,8 @@ who conveys the material (or modified versions of it) with contractual assumptio
 liability to the recipient, for any liability that these contractual assumptions
 directly impose on those licensors and authors.
 
-All other non-permissive additional terms are considered “further
-restrictions” within the meaning of _section 10_. If the Program as you received
+All other non-permissive additional terms are considered _“further
+restrictions”_ within the meaning of _section 10_. If the Program as you received
 it, or any part of it, contains a notice stating that it is governed by this License
 along with a term that is a further restriction, you may remove that term. If a
 license document contains a further restriction but permits relicensing or conveying
@@ -387,7 +385,7 @@ from the original licensors, to run, modify and propagate that work, subject to 
 License. You are not responsible for enforcing compliance by third parties with this
 License.
 
-An “entity transaction” is a transaction transferring control of an
+An _“entity transaction”_ is a transaction transferring control of an
 organization, or substantially all assets of one, or subdividing an organization, or
 merging organizations. If propagation of a covered work results from an entity
 transaction, each party to that transaction who receives a copy of the work also
@@ -447,7 +445,7 @@ propagate, modify or convey a specific copy of the covered work, then the patent
 license you grant is automatically extended to all recipients of the covered work and
 works based on it.
 
-A patent license is “discriminatory” if it does not include within the
+A patent license is _“discriminatory”_ if it does not include within the
 scope of its coverage, prohibits the exercise of, or is conditioned on the
 non-exercise of one or more of the rights that are specifically granted under this
 License. You may not convey a covered work if you are a party to an arrangement with
@@ -535,7 +533,7 @@ law that most closely approximates an absolute waiver of all civil liability in
 connection with the Program, unless a warranty or assumption of liability accompanies
 a copy of the Program in return for a fee.
 
-_END OF TERMS AND CONDITIONS_
+> _END OF TERMS AND CONDITIONS_
 
 ---
 

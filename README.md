@@ -1,11 +1,11 @@
 # Radio Streaming App
 
-Based on [radiosai by immadisairaj](https://github.com/immadisairaj/radiosai). It's been simplified and adapted to work for [Canalside Radio](https://www.thecanalsideradio.com/). Curreltny it only has one stream with the multistreaming and offline functions disabled for now.
+Based on [radiosai by immadisairaj](https://github.com/immadisairaj/radiosai). It's been simplified and adapted to work for [Canalside Radio](https://www.thecanalsideradio.com/). Currently it only has one stream with the multi-streaming and offline functions disabled for now.
 
 ## Overview
 
 * __Smooth:__ The app is built to keep a smooth user experience. One can change the streams they want to listen to with ease by just sliding the panel up and selecting the new stream.
-* __Seamless Listening:__ It is capable of running in the background until the app is removed from the process. Listen to your favourite radio stream with just one click after opening the app (an option to set the favourite stream at the start of the app)
+* __Seamless Listening:__ It is capable of running in the background until the app is removed from the process. Listen to your favorite radio stream with just one click after opening the app (an option to set the favorite stream at the start of the app)
 * __Media Control:__ It can handle the audio options from a handset to a headset, from lock screen notifications to earphones button click. It also pauses when another player starts and doesn't interrupt any incoming notifications.
 * __Dark Theme:__ The app also comes with dark theme. One can change the theme they want from settings.
 * __Split Screen:__ The app is suitable for split screen. Operate this app while doing work in a different app.
@@ -18,24 +18,24 @@ Based on [radiosai by immadisairaj](https://github.com/immadisairaj/radiosai). I
 
 ## Features
 
-| Feature                            |  Android |   iOS  |
-| -------                            | :-------:| :-----:|
-| background audio                   | ✔️       | ✔️    |
-| headset clicks                     | ✔️       | ✔️    |
-| play/pause/seek                    | ✔️       | ✔️    |
-| fast forward/rewind                | ✔️       | ✔️    |
-| repeat/shuffle mode                | ✔️       | ✔️    |
-| skip next/prev                     | ✔️       | ✔️    |
-| notifications/control center       | ✔️       | ✔️    |
-| light/dark theme                   | ✔️       | ✔️    |
-| starting with fav stream           | ✔️       | ✔️    |
-| share media links                  | ✔️       | ✔️    |
-| splash screen/launch screen        | ✔️       | ✔️    |
-| app links                          | ✔️       |        |
+| Feature                            | Android |   iOS  |
+| ---------------                    |:-------:| :-----:|
+| background audio                   |    ✔️   |   ✔️   |
+| headset clicks                     |    ✔️   |   ✔️   |
+| play/pause/seek                    |    ✔️   |   ✔️   |
+| fast forward/rewind                |    ✔️   |   ✔️   |
+| repeat/shuffle mode                |    ✔️   |   ✔️   |
+| skip next/prev                     |    ✔️   |   ✔️   |
+| notifications/control center       |    ✔️   |   ✔️   |
+| light/dark theme                   |    ✔️   |   ✔️   |
+| starting with fav stream           |    ✔️   |   ✔️   |
+| share media links                  |    ✔️   |   ✔️   |
+| splash screen/launch screen        |    ✔️   |   ✔️   |
+| app links                          |    ✔️   |        |
 
 ## Radio Player Flow
 
-```
+```text
 Stop State -> Play in app screen (user action) -> Play State
 Stop State -> Change Radio Stream (user action) -> Changes Radio Stream -> Stop State
 Play State -> Change Radio Stream (user action) -> Stop State -> Changes Radio Stream -> Play State
@@ -49,7 +49,7 @@ Play State -> Stop in notification (user action) -> Stop State
 
 Most of the main features use bloc architecture using providers and streams. The usage of this architecture helps the app no to completely refresh but just helpful for updating the needed components smoothly.
 
-```bash
+```text
 lib
 ├───audio_service   # audio service related handlers
 │   └── notifiers
@@ -72,10 +72,15 @@ lib
     ├───radio
     └───settings
 ```
-_Above is generated using "tree" command inside lib/_
+
+_Above is generated using "tree" command inside `lib/`_
 
 Thanks to the Open Source community for providing such great libraries and framework which was very helpful in building the application.
 
 ## License
 
-This project is licensed under the GNU General Public License V2, see the [LICENSE.md](https://github.com/immadisairaj/radiosai/blob/main/LICENSE.md) for more details.
+_Canalside Radio - Open Radio Client<br>Copyright (C) 2026 by James McKeeth_
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the [GNU General Public License](LICENSE.md) (or on [gnu.org](http://www.gnu.org/licenses/)) for more details.
