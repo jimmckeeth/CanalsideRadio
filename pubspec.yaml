@@ -79,8 +79,11 @@ dev_dependencies:
 flutter_launcher_icons:
   android: "ic_launcher"
   ios: true
-  image_path: "assets/canalside1024.png"
+  image_path: "assets/logo-round.png"
   remove_alpha_ios: true
+  adaptive_icon_background: "#ffffff"
+  adaptive_icon_foreground: "assets/logo-round.png"
+  adaptive_icon_monochrome: "assets/logo-round.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:radiostream/screens/settings/about/open_source_licenses_screen.dart';
 import 'package:radiostream/screens/settings/general/app_theme.dart';
 import 'package:radiostream/widgets/settings/settings_section.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -122,12 +123,25 @@ class _Settings extends State<Settings> {
           const Divider(),
           ListTile(
             contentPadding: _contentPadding,
+            title: const Text('Contact'),
+            subtitle: const Text('thecanalsideradio@gmail.com'),
+            onTap: () {
+              _urlLaunch('mailto:thecanalsideradio@gmail.com');
+            },
+          ),
+          const Divider(),
+          ListTile(
+            contentPadding: _contentPadding,
             title: const Text('Open source licenses'),
             onTap: () {
-              showLicensePage(
-                context: context,
-                applicationName: _packageInfo.appName,
-                applicationVersion: _packageInfo.version,
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => OpenSourceLicensesScreen(
+                    appName: _packageInfo.appName,
+                    appVersion: _packageInfo.version,
+                  ),
+                ),
               );
             },
           ),

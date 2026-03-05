@@ -26,6 +26,9 @@ class MyAudioHandler extends BaseAudioHandler {
   final _player = AudioPlayer();
   // playing media type
   MediaType? _mediaType = MediaType.radio;
+  // latest ICY metadata received from the stream
+  String? _icyTitle;
+  Uri? _icyArtUri;
 
   MyAudioHandler() {
     _listenToNotificationClickEvent();
@@ -62,6 +65,35 @@ class MyAudioHandler extends BaseAudioHandler {
     _listenForDurationChanges();
     _listenForCurrentSongIndexChanges();
     _listenForSequenceStateChanges();
+    _listenForIcyMetadata();
+  }
+
+  void _listenForIcyMetadata() {
+    _player.icyMetadataStream.listen((metadata) {
+      final title = metadata?.info?.title;
+      // Ignore empty, XML/HTML payloads, or meaningless placeholder values
+      const meaningless = {'unknown', 'n/a', '-', 'no title', 'untitled'};
+      if (title == null ||
+          title.isEmpty ||
+          title.trimLeft().startsWith('<') ||
+          meaningless.contains(title.toLowerCase().trim())) {
+        return;
+      }
+      _icyTitle = title;
+      final url = metadata?.info?.url ?? '';
+      _icyArtUri = url.startsWith('http') ? Uri.tryParse(url) : null;
+      final current = mediaItem.value;
+      if (current == null) return;
+      mediaItem.add(_applyIcy(current));
+    });
+  }
+
+  /// Apply stored ICY title and art URI to a MediaItem, preserving originals as fallback.
+  MediaItem _applyIcy(MediaItem item) {
+    var updated = item;
+    if (_icyTitle != null) updated = updated.copyWith(title: _icyTitle!);
+    if (_icyArtUri != null) updated = updated.copyWith(artUri: _icyArtUri);
+    return updated;
   }
 
   void _setMediaType(MediaType? mediaType) {
@@ -148,9 +180,9 @@ class MyAudioHandler extends BaseAudioHandler {
         index = _player.shuffleIndices[index];
       }
       final oldMediaItem = newQueue[index]!;
-      final MediaItem newMediaItem = oldMediaItem.copyWith(
+      final MediaItem newMediaItem = _applyIcy(oldMediaItem.copyWith(
         duration: duration ?? Duration.zero,
-      );
+      ));
       newQueue[index] = newMediaItem;
       queue.add(newQueue as List<MediaItem>);
       mediaItem.add(newMediaItem);
@@ -165,7 +197,7 @@ class MyAudioHandler extends BaseAudioHandler {
         index = _player.shuffleIndices[index];
       }
       try {
-        mediaItem.add(playlist[index]);
+        mediaItem.add(_applyIcy(playlist[index]));
       } catch (_) {
         // Do nothing when cached
         // Error occurs when changing stream, but it works fine
@@ -177,7 +209,10 @@ class MyAudioHandler extends BaseAudioHandler {
     _player.sequenceStateStream.listen((SequenceState? sequenceState) {
       final sequence = sequenceState?.effectiveSequence;
       if (sequence == null || sequence.isEmpty) return;
-      final items = sequence.map((source) => source.tag as MediaItem);
+      final items = sequence.map((source) {
+        final item = source.tag as MediaItem;
+        return _applyIcy(item);
+      });
       queue.add(items.toList());
     });
   }
@@ -263,6 +298,8 @@ class MyAudioHandler extends BaseAudioHandler {
         _player.pause();
         await _player.clearAudioSources();
         queue.add(queue.value..clear());
+        _icyTitle = null;
+        _icyArtUri = null;
         break;
       // init method is called when starting a new player
       case 'init':

@@ -158,8 +158,7 @@ class MediaHelper {
     // if the image already exists, return the path
     if (fileExists) return path;
     // store the image into path from assets then return the path
-    final byteData =
-        await rootBundle.load('assets/canalside1024.png');
+    final byteData = await rootBundle.load('assets/logo-round.png');
     // if file is not created, create to write into the file
     file.create(recursive: true);
     await file.writeAsBytes(byteData.buffer.asUint8List());
@@ -170,7 +169,7 @@ class MediaHelper {
   static Future<String> _getNotificationFilePath() async {
     Directory appDocDir = await getApplicationDocumentsDirectory();
     String appDocPath = appDocDir.path;
-    String filePath = '$appDocPath/canalside_notification.png';
+    String filePath = '$appDocPath/canalside_logo_notification.png';
     return filePath;
   }
 }

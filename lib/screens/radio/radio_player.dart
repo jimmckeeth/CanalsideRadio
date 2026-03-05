@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:radiostream/audio_service/audio_manager.dart';
@@ -175,22 +176,25 @@ class _RadioPlayer extends State<RadioPlayer>
                   height: height,
                   // color is transparent in order for container to occupy the whole height
                   color: Colors.transparent,
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: SizedBox(
-                      height: height * 0.2,
-                      width: width,
-                      child: Container(
-                        color: Colors.black54,
-                        child: _playerDisplay(
-                          widget.radioStreamIndex,
-                          widget.isPlaying,
-                          widget.loadingState!,
-                          widget.radioLoadingBloc,
-                          widget.hasInternet,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Expanded(child: _artworkDisplay()),
+                      SizedBox(
+                        height: height * 0.2,
+                        width: width,
+                        child: Container(
+                          color: Colors.black54,
+                          child: _playerDisplay(
+                            widget.radioStreamIndex,
+                            widget.isPlaying,
+                            widget.loadingState!,
+                            widget.radioLoadingBloc,
+                            widget.hasInternet,
+                          ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
                 ),
               ),
@@ -200,6 +204,35 @@ class _RadioPlayer extends State<RadioPlayer>
           ],
         ),
       ),
+    );
+  }
+
+  Widget _artworkDisplay() {
+    const fallback = Padding(
+      padding: EdgeInsets.all(32),
+      child: Image(
+        image: AssetImage('assets/logo-round.png'),
+        fit: BoxFit.contain,
+      ),
+    );
+    return ValueListenableBuilder<Uri?>(
+      valueListenable: _audioManager!.artUriNotifier,
+      builder: (context, artUri, _) {
+        if (artUri == null || !artUri.isScheme('https')) {
+          return Center(child: fallback);
+        }
+        return Center(
+          child: Padding(
+            padding: const EdgeInsets.all(32),
+            child: CachedNetworkImage(
+              imageUrl: artUri.toString(),
+              fit: BoxFit.contain,
+              placeholder: (_, __) => fallback,
+              errorWidget: (_, __, ___) => fallback,
+            ),
+          ),
+        );
+      },
     );
   }
 
@@ -261,11 +294,39 @@ class _RadioPlayer extends State<RadioPlayer>
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 8.0),
-              child: Text(
-                playingRadioStreamName,
-                style: const TextStyle(color: Colors.white, fontSize: 24),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: ValueListenableBuilder<String>(
+                  valueListenable: _audioManager!.currentSongTitleNotifier,
+                  builder: (context, icyTitle, _) {
+                    final showIcy = icyTitle.isNotEmpty &&
+                        icyTitle != playingRadioStreamName;
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          playingRadioStreamName,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 24,
+                          ),
+                        ),
+                        if (showIcy)
+                          Text(
+                            icyTitle,
+                            style: const TextStyle(
+                              color: Colors.white70,
+                              fontSize: 13,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                      ],
+                    );
+                  },
+                ),
               ),
             ),
             Padding(

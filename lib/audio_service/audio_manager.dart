@@ -13,6 +13,7 @@ class AudioManager {
   // Listeners: Updates going to the UI
   final mediaTypeNotifier = MediaTypeNotifier();
   final currentSongTitleNotifier = ValueNotifier<String>('');
+  final artUriNotifier = ValueNotifier<Uri?>(null);
   final queueNotifier = ValueNotifier<List<String>>([]);
   final progressNotifier = ProgressNotifier();
   final repeatButtonNotifier = RepeatButtonNotifier();
@@ -74,18 +75,15 @@ class AudioManager {
     int index,
     Map<String, String> artLinks,
   ) async {
-    // Get the path of image for artUri in notification
-    // String path = await MediaHelper.getDefaultNotificationImage();
     String key = radioStream.keys.toList()[index];
     String value = radioStream.values.toList()[index];
-    String artUriString = artLinks.values.toList()[index];
+    String logoPath = await MediaHelper.getDefaultNotificationImage();
     return MediaItem(
       id: key,
       title: key,
-      album: 'Canalside Radio',
-      artist: 'Canalside Radio',
-      artUri: artUriString.isNotEmpty ? Uri.parse(artUriString) : null,
-      // artUri: Uri.parse('file://$path'),
+      album: '',
+      artist: '',
+      artUri: Uri.parse('file://$logoPath'),
       extras: {'uri': value},
     );
   }
@@ -211,6 +209,7 @@ class AudioManager {
   void _listenToChangesInSong() {
     _audioHandler.mediaItem.listen((mediaItem) {
       currentSongTitleNotifier.value = mediaItem?.title ?? '';
+      artUriNotifier.value = mediaItem?.artUri;
       _updateSkipButtons();
     });
   }
