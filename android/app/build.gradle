@@ -97,6 +97,5 @@ flutter {
 }
 
 dependencies {
-    // for using vector drawables
-    implementation 'com.android.support:appcompat-v7:23.2.0'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
 }

@@ -81,7 +81,7 @@ class MyAudioHandler extends BaseAudioHandler {
       }
       _icyTitle = title;
       final url = metadata?.info?.url ?? '';
-      _icyArtUri = url.startsWith('http') ? Uri.tryParse(url) : null;
+      _icyArtUri = url.startsWith('https') ? Uri.tryParse(url) : null;
       final current = mediaItem.value;
       if (current == null) return;
       mediaItem.add(_applyIcy(current));
@@ -132,7 +132,7 @@ class MyAudioHandler extends BaseAudioHandler {
         updatePosition: _player.position,
         bufferedPosition: _player.bufferedPosition,
         speed: _player.speed,
-        queueIndex: event.currentIndex!,
+        queueIndex: event.currentIndex ?? 0,
       );
     } else {
       return playbackState.value.copyWith(
@@ -166,7 +166,7 @@ class MyAudioHandler extends BaseAudioHandler {
         updatePosition: _player.position,
         bufferedPosition: _player.bufferedPosition,
         speed: _player.speed,
-        queueIndex: event.currentIndex!,
+        queueIndex: event.currentIndex ?? 0,
       );
     }
   }
@@ -261,7 +261,7 @@ class MyAudioHandler extends BaseAudioHandler {
       if (!uri.isAbsolute) {
         // A schemeless URI with an authority part is likely a web address.
         if (uri.hasAuthority) {
-          uri = Uri.parse('http://$uriString');
+          uri = Uri.parse('https://$uriString');
         } else {
           // Otherwise it's probably a relative file path, which we can't handle.
           return null;
