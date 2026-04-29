@@ -1,6 +1,8 @@
 name: Publish
 
 on:
+  release:
+    types: [published]
   workflow_dispatch:
     inputs:
       platform:
@@ -13,7 +15,10 @@ on:
 jobs:
   publish-android:
     name: Publish Android
-    if: inputs.platform == 'android' || inputs.platform == 'both'
+    if: |
+      github.event_name == 'release' ||
+      inputs.platform == 'android' ||
+      inputs.platform == 'both'
     runs-on: ubuntu-latest
 
     steps:
@@ -60,7 +65,10 @@ jobs:
 
   publish-ios:
     name: Publish iOS
-    if: inputs.platform == 'ios' || inputs.platform == 'both'
+    if: |
+      github.event_name == 'release' ||
+      inputs.platform == 'ios' ||
+      inputs.platform == 'both'
     runs-on: macos-latest
 
     steps:
