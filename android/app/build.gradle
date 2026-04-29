@@ -75,14 +75,11 @@ android {
         release {
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.release
-            shrinkResources false // used by audio_source plugin
+            shrinkResources false // required by audio_service plugin
+            minifyEnabled true
             ndk {
                 debugSymbolLevel 'SYMBOL_TABLE'
             }
-
-//            minifyEnabled true
-//            useProguard true
-
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
