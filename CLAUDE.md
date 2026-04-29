@@ -87,14 +87,24 @@ The app uses **BLoC pattern with Provider + RxDart streams** for reactive state 
 
 ### BLoC Layer (`lib/bloc/`)
 
-| BLoC Class | Purpose | Persistence |
-|-----------|---------|------------|
-| `RadioIndexBloc` | Current stream index | SharedPreferences |
-| `RadioLoadingBloc` | Radio player loading state | In-memory |
-| `InitialRadioIndexBloc` | Startup stream preference | SharedPreferences |
-| `AppThemeBloc` | App theme | SharedPreferences |
-| `MediaScreenBloc` | Media screen refresh trigger | In-memory |
-| `InternetStatus` | Network connectivity | ICCP stream |
+| BLoC Class | Purpose | Persistence | Active in Canalside |
+|-----------|---------|------------|---------------------|
+| `RadioIndexBloc` | Current stream index | SharedPreferences | ✅ `radio_home`, `radio_stream_select` |
+| `RadioLoadingBloc` | Radio player loading state | In-memory | ✅ `radio_home`, `radio_player` |
+| `InitialRadioIndexBloc` | Startup stream preference | SharedPreferences | ✅ `settings/starting_radio_stream` |
+| `AppThemeBloc` | App theme | SharedPreferences | ✅ `main.dart`, `settings/app_theme` |
+| `MediaScreenBloc` | Media screen refresh trigger | In-memory | ⚠️ upstream only — `media.dart` (disabled) |
+| `InternetStatus` | Network connectivity | ICCP stream | ✅ app-wide |
+
+### Notifier Layer (`lib/audio_service/notifiers/`)
+
+| Notifier | State type | Active in Canalside |
+|----------|-----------|---------------------|
+| `PlayButtonNotifier` | `PlayButtonState` (paused/playing) | ✅ `radio_home`, `top_media_player`, `bottom_media_player` |
+| `LoadingNotifier` | `LoadingState` (loading/done) | ✅ `radio_player`, `radio_home` |
+| `MediaTypeNotifier` | `MediaType` (radio/media) | ✅ `radio_player`, `radio_home`, `top_media_player`, `bottom_media_player` |
+| `RepeatButtonNotifier` | `RepeatState` (off/repeatQueue/repeatSong) | ⚠️ upstream only — `media_player.dart` |
+| `ProgressNotifier` | `ProgressBarState` | ⚠️ upstream only — `media_player.dart` |
 
 ### Configuration (`lib/constants/constants.dart`)
 
