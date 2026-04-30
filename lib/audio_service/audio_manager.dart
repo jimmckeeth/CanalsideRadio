@@ -7,6 +7,8 @@ import 'package:radiostream/audio_service/notifiers/progress_notifier.dart';
 import 'package:radiostream/audio_service/notifiers/repeat_button_notifier.dart';
 import 'package:radiostream/audio_service/service_locator.dart';
 import 'package:radiostream/helper/media_helper.dart';
+import 'dart:async';
+
 import 'package:rxdart/rxdart.dart';
 
 class AudioManager {
@@ -24,6 +26,13 @@ class AudioManager {
   final isShuffleModeEnabledNotifier = ValueNotifier<bool>(false);
 
   final AudioHandler _audioHandler = getIt<AudioHandler>();
+
+  StreamSubscription? _queueSubscription;
+  StreamSubscription? _playbackStateSubscription;
+  StreamSubscription? _positionSubscription;
+  StreamSubscription? _bufferedPositionSubscription;
+  StreamSubscription? _durationSubscription;
+  StreamSubscription? _songChangesSubscription;
 
   /// if [mediaType] is [MediaType.radio],
   /// pass radioStream map which is located in "MyConstants"
@@ -139,7 +148,7 @@ class AudioManager {
   ValueStream<MediaItem?> get currentMediaItem => _audioHandler.mediaItem;
 
   void _listenToChangesInQueue() {
-    _audioHandler.queue.listen((queue) {
+    _queueSubscription = _audioHandler.queue.listen((queue) {
       if (queue.isEmpty) {
         queueNotifier.value = [];
         currentSongTitleNotifier.value = '';
@@ -152,7 +161,7 @@ class AudioManager {
   }
 
   void _listenToPlaybackState() {
-    _audioHandler.playbackState.listen((playbackState) {
+    _playbackStateSubscription = _audioHandler.playbackState.listen((playbackState) {
       final processingState = playbackState.processingState;
       if (processingState == AudioProcessingState.loading ||
           processingState == AudioProcessingState.buffering) {
@@ -174,7 +183,7 @@ class AudioManager {
   }
 
   void _listenToCurrentPosition() {
-    AudioService.position.listen((position) {
+    _positionSubscription = AudioService.position.listen((position) {
       final ProgressBarState oldState = progressNotifier.value;
       progressNotifier.value = ProgressBarState(
         current: position,
@@ -185,7 +194,7 @@ class AudioManager {
   }
 
   void _listenToBufferedPosition() {
-    _audioHandler.playbackState.listen((playbackState) {
+    _bufferedPositionSubscription = _audioHandler.playbackState.listen((playbackState) {
       final ProgressBarState oldState = progressNotifier.value;
       progressNotifier.value = ProgressBarState(
         current: oldState.current,
@@ -196,7 +205,7 @@ class AudioManager {
   }
 
   void _listenToTotalDuration() {
-    _audioHandler.mediaItem.listen((mediaItem) {
+    _durationSubscription = _audioHandler.mediaItem.listen((mediaItem) {
       final ProgressBarState oldState = progressNotifier.value;
       progressNotifier.value = ProgressBarState(
         current: oldState.current,
@@ -207,7 +216,7 @@ class AudioManager {
   }
 
   void _listenToChangesInSong() {
-    _audioHandler.mediaItem.listen((mediaItem) {
+    _songChangesSubscription = _audioHandler.mediaItem.listen((mediaItem) {
       currentSongTitleNotifier.value = mediaItem?.title ?? '';
       artUriNotifier.value = mediaItem?.artUri;
       _updateSkipButtons();
@@ -224,6 +233,15 @@ class AudioManager {
       isFirstSongNotifier.value = playlist.first == mediaItem;
       isLastSongNotifier.value = playlist.last == mediaItem;
     }
+  }
+
+  void _cancelSubscriptions() {
+    _queueSubscription?.cancel();
+    _playbackStateSubscription?.cancel();
+    _positionSubscription?.cancel();
+    _bufferedPositionSubscription?.cancel();
+    _durationSubscription?.cancel();
+    _songChangesSubscription?.cancel();
   }
 
   ValueStream<PlaybackState> get playbackState => _audioHandler.playbackState;
@@ -256,6 +274,7 @@ class AudioManager {
 
   /// Clears the audio queue
   Future<void> clear() async {
+    _cancelSubscriptions();
     await _audioHandler.pause();
     await _audioHandler.stop();
     return _audioHandler.customAction('clear');
@@ -268,6 +287,7 @@ class AudioManager {
   }
 
   void dispose() {
+    _cancelSubscriptions();
     _audioHandler.customAction('dispose');
   }
 

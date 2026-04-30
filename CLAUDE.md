@@ -70,24 +70,63 @@ The app uses **BLoC pattern with Provider + RxDart streams** for reactive state 
 - `home.dart` – root scaffold; stacks `RadioHome`, `TopMenu`, `TopMediaPlayer`
 - `radio/radio_home.dart` – main screen; handles app links and audio manager initialization
 - `radio/radio_player.dart` – the play/pause UI and sliding panel
-- `radio/radio_stream_select.dart` – stream selector (currently only one stream)
+- `radio/radio_stream_select.dart` – stream selector (single stream only)
 - `media_player/media_player.dart` – full-screen media player for on-demand audio
 - `settings/` – app theme and starting stream preferences
+- `audio_archive/`, `media/`, `radio_schedule/`, `search/` – upstream fork screens, largely disabled for Canalside
+
+### Widget Layer (`lib/widgets/`)
+
+- `TopMediaPlayer` – floating overlay showing current media when media (not radio) is active
+- `TopMenu` – menu bar with Settings button
+- `BottomMediaPlayer` – bottom player bar shown on archive/media screens
+- `InternetAlert` – animated connectivity status bar
+- `no_data.dart` – empty-state placeholder
+- `radio/slider_handle.dart` – visual handle for the sliding stream selector panel
+- `settings/settings_section.dart` – reusable settings section container
+
+### BLoC Layer (`lib/bloc/`)
+
+| BLoC Class | Purpose | Persistence | Active in Canalside |
+|-----------|---------|------------|---------------------|
+| `RadioIndexBloc` | Current stream index | SharedPreferences | ✅ `radio_home`, `radio_stream_select` |
+| `RadioLoadingBloc` | Radio player loading state | In-memory | ✅ `radio_home`, `radio_player` |
+| `InitialRadioIndexBloc` | Startup stream preference | SharedPreferences | ✅ `settings/starting_radio_stream` |
+| `AppThemeBloc` | App theme | SharedPreferences | ✅ `main.dart`, `settings/app_theme` |
+| `MediaScreenBloc` | Media screen refresh trigger | In-memory | ⚠️ upstream only — `media.dart` (disabled) |
+| `InternetStatus` | Network connectivity | ICCP stream | ✅ app-wide |
+
+### Notifier Layer (`lib/audio_service/notifiers/`)
+
+| Notifier | State type | Active in Canalside |
+|----------|-----------|---------------------|
+| `PlayButtonNotifier` | `PlayButtonState` (paused/playing) | ✅ `radio_home`, `top_media_player`, `bottom_media_player` |
+| `LoadingNotifier` | `LoadingState` (loading/done) | ✅ `radio_player`, `radio_home` |
+| `MediaTypeNotifier` | `MediaType` (radio/media) | ✅ `radio_player`, `radio_home`, `top_media_player`, `bottom_media_player` |
+| `RepeatButtonNotifier` | `RepeatState` (off/repeatQueue/repeatSong) | ⚠️ upstream only — `media_player.dart` |
+| `ProgressNotifier` | `ProgressBarState` | ⚠️ upstream only — `media_player.dart` |
 
 ### Configuration (`lib/constants/constants.dart`)
 
 `MyConstants` is an `InheritedWidget` containing all hardcoded configuration:
 
-- `radioStreamHttps` – map of stream names to CDN URLs (currently only "The Canalside Radio")
+- `radioStreamHttps` – map of stream names to CDN URLs (single entry: "The Canalside Radio")
 - `radioStreamImages` – art images for streams
-- `scheduleStream`, `audioArchive`, `audioArchiveFids` – leftover from the upstream fork, mostly unused in the Canalside adaptation
+- `scheduleStream`, `audioArchive`, `audioArchiveFids` – leftover from the upstream fork, unused in the Canalside adaptation
 - `appThemes` – list ordering must not change (index-based)
 
-### Versioning
+### Helpers (`lib/helper/`)
+
+- `MediaHelper` – file/URI conversions, media directory paths, media item generation
+- `NavigationService` – global navigator key; `navigateTo()`, `popUntil()`, `popToBase()`
+- `ScaffoldHelper` – global scaffold key for app-wide snackbars
+- `DownloadHelper` – download task management (disabled)
+
+## Versioning
 
 Format: `<major>.<feature>.<fixes>+<commits>` (e.g. `1.4.9+220` in `pubspec.yaml`).
 
-### OTA Updates
+## OTA Updates
 
 The app uses [Shorebird](https://shorebird.dev) for over-the-air code patches (configured in `shorebird.yaml`). Use `shorebird patch` for Dart-only changes; use `shorebird release` for native changes or new store submissions.
 
@@ -96,3 +135,43 @@ The app uses [Shorebird](https://shorebird.dev) for over-the-air code patches (c
 - `prefer_single_quotes: true`
 - `use_super_parameters: true`
 - Based on `package:flutter_lints/flutter.yaml`
+
+## Key Patterns
+
+### BLoC stream pattern
+```dart
+class XBloc {
+  final _stream = BehaviorSubject<T>.seeded(initial);
+  Stream<T> get xxxStream => _stream.stream;
+  StreamSink<T> get changeXxx => _stream.sink;
+  void dispose() { _stream.close(); }
+}
+// Consumed: Consumer<XBloc> + StreamBuilder<T>
+```
+
+### Notifier pattern
+```dart
+class XNotifier extends ValueNotifier<XState> {
+  XNotifier() : super(XState.initial);
+}
+// Consumed: ValueListenableBuilder<XState>
+```
+
+### Service locator
+```dart
+// Register (service_locator.dart)
+getIt.registerSingleton<AudioHandler>(await initAudioService());
+// Use anywhere
+final audioManager = getIt<AudioManager>();
+```
+
+## Disabled / Leftover Features
+
+- **Flutter Downloader** – imported but fully commented out; do not re-enable without implementing the full feature
+- **Multi-stream** – code supports a map of streams but only one stream is active; do not add test streams to `radioStreamHttps`
+- **Audio archive / schedule / search** – screens exist from the upstream fork but are not wired to Canalside content; `scheduleStream` and `audioArchiveFids` entries in `constants.dart` are legacy
+- **`audio_handler.dart`** – contains a large `/* START OF COMMENT … END OF COMMENT */` block (~485 lines) of old `BackgroundAudioTask` code; do not modify it
+
+## Security Notes
+
+All stream and media URIs must be HTTPS. The network security config (`android/app/src/main/res/xml/network_security_config.xml`) only permits cleartext to `127.0.0.1` (localhost). The audio handler enforces HTTPS for schemeless URIs and ICY art URLs. Do not add `android:usesCleartextTraffic` or `android:requestLegacyExternalStorage` back to `AndroidManifest.xml`.

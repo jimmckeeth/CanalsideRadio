@@ -464,7 +464,8 @@ class _ScheduleData extends State<ScheduleData> {
       }
       tempResponse = '[';
       bool firstFlag = false;
-      if (previousResponse.statusCode == 200) {
+      if (previousResponse.statusCode == 200 &&
+          previousResponse.body.length > 2) {
         tempResponse += previousResponse.body.substring(
           1,
           previousResponse.body.length - 1,
@@ -472,12 +473,12 @@ class _ScheduleData extends State<ScheduleData> {
         firstFlag = true;
       }
       bool secondFlag = false;
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 && response.body.length > 2) {
         tempResponse += firstFlag ? ',' : '';
         tempResponse += response.body.substring(1, response.body.length - 1);
         secondFlag = true;
       }
-      if (nextResponse.statusCode == 200) {
+      if (nextResponse.statusCode == 200 && nextResponse.body.length > 2) {
         tempResponse += secondFlag ? ',' : '';
         tempResponse += nextResponse.body.substring(
           1,
@@ -502,6 +503,7 @@ class _ScheduleData extends State<ScheduleData> {
   ///
   /// need date (selected date) to be passed
   void _parseData(String response, DateTime date) {
+    try {
     final data = jsonDecode(response);
     List<ScheduleEntity> finalData = [];
     for (var row in data) {
@@ -649,6 +651,14 @@ class _ScheduleData extends State<ScheduleData> {
         // loading is done
         _isLoading = false;
       });
+    }
+    } catch (_) {
+      if (mounted) {
+        setState(() {
+          _finalData = [];
+          _isLoading = false;
+        });
+      }
     }
   }
 

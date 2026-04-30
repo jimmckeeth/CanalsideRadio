@@ -1,0 +1,123 @@
+name: Publish
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      platform:
+        description: Platform to publish
+        required: true
+        default: both
+        type: choice
+        options: [android, ios, both]
+
+jobs:
+  publish-android:
+    name: Publish Android
+    if: |
+      github.event_name == 'release' ||
+      inputs.platform == 'android' ||
+      inputs.platform == 'both'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - uses: shorebirdtech/setup-shorebird@v1
+        with:
+          cache: true
+
+      - run: flutter pub get
+
+      - name: Configure signing
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+        run: |
+          echo "$KEYSTORE_BASE64" | base64 -d > $RUNNER_TEMP/keystore.jks
+          echo "CM_KEYSTORE_PATH=$RUNNER_TEMP/keystore.jks" >> $GITHUB_ENV
+          echo "CI=true" >> $GITHUB_ENV
+
+      - name: Shorebird release
+        env:
+          SHOREBIRD_TOKEN: ${{ secrets.SHOREBIRD_TOKEN }}
+          CM_KEYSTORE_PASSWORD: ${{ secrets.CM_KEYSTORE_PASSWORD }}
+          CM_KEY_ALIAS: ${{ secrets.CM_KEY_ALIAS }}
+          CM_KEY_PASSWORD: ${{ secrets.CM_KEY_PASSWORD }}
+        run: shorebird release android
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-android
+          path: build/app/outputs/**/*.apk
+          if-no-files-found: warn
+
+  publish-ios:
+    name: Publish iOS
+    if: |
+      github.event_name == 'release' ||
+      inputs.platform == 'ios' ||
+      inputs.platform == 'both'
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - uses: shorebirdtech/setup-shorebird@v1
+        with:
+          cache: true
+
+      - run: flutter pub get
+
+      # Install the Apple Distribution certificate and provisioning profile
+      # into a temporary keychain so Xcode can sign the build.
+      - name: Install Apple certificate and provisioning profile
+        env:
+          P12_CERTIFICATE_BASE64: ${{ secrets.IOS_P12_CERTIFICATE_BASE64 }}
+          P12_PASSWORD: ${{ secrets.IOS_P12_PASSWORD }}
+          PROVISIONING_PROFILE_BASE64: ${{ secrets.IOS_PROVISIONING_PROFILE_BASE64 }}
+        run: |
+          KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
+
+          echo "$P12_CERTIFICATE_BASE64" | base64 -d > $RUNNER_TEMP/certificate.p12
+          echo "$PROVISIONING_PROFILE_BASE64" | base64 -d > $RUNNER_TEMP/profile.mobileprovision
+
+          security create-keychain -p "" $KEYCHAIN_PATH
+          security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
+          security unlock-keychain -p "" $KEYCHAIN_PATH
+          security import $RUNNER_TEMP/certificate.p12 \
+            -k $KEYCHAIN_PATH -P "$P12_PASSWORD" -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple: -s -k "" $KEYCHAIN_PATH
+          security list-keychains -d user -s $KEYCHAIN_PATH
+
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          cp $RUNNER_TEMP/profile.mobileprovision \
+            ~/Library/MobileDevice/Provisioning\ Profiles/
+
+      - name: Shorebird release
+        env:
+          SHOREBIRD_TOKEN: ${{ secrets.SHOREBIRD_TOKEN }}
+        run: shorebird release ios
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-ios
+          path: build/ios/ipa/*.ipa
+          if-no-files-found: warn

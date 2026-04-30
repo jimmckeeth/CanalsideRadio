@@ -31,6 +31,7 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     compileSdkVersion 36
+    ndkVersion = "28.2.13676358"
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -58,7 +59,7 @@ android {
 
     signingConfigs {
         release {
-            if (System.getenv()["CI"]) { // CI=true is exported by Codemagic
+            if (System.getenv()["CM_KEYSTORE_PATH"]) { // Set by CI when signing secrets are configured
                 storeFile file(System.getenv()["CM_KEYSTORE_PATH"])
                 storePassword System.getenv()["CM_KEYSTORE_PASSWORD"]
                 keyAlias System.getenv()["CM_KEY_ALIAS"]
@@ -73,16 +74,17 @@ android {
     }
     buildTypes {
         release {
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig signingConfigs.release
-            shrinkResources false // used by audio_source plugin
+            // Use release signing when secrets are available; fall back to debug signing otherwise.
+            if (keystorePropertiesFile.exists() || System.getenv()["CM_KEYSTORE_PATH"]) {
+                signingConfig signingConfigs.release
+            } else {
+                signingConfig signingConfigs.debug
+            }
+            shrinkResources false // required by audio_service plugin
+            minifyEnabled true
             ndk {
                 debugSymbolLevel 'SYMBOL_TABLE'
             }
-
-//            minifyEnabled true
-//            useProguard true
-
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -97,6 +99,5 @@ flutter {
 }
 
 dependencies {
-    // for using vector drawables
-    implementation 'com.android.support:appcompat-v7:23.2.0'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
 }

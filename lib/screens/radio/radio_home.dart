@@ -28,10 +28,9 @@ class RadioHome extends StatefulWidget {
   State<RadioHome> createState() => _RadioHome();
 }
 
-bool _initialUriIsHandled = false;
-
 class _RadioHome extends State<RadioHome> {
   AudioManager? _audioManager;
+  bool _initialUriIsHandled = false;
 
   @override
   void initState() {

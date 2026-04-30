@@ -11,12 +11,10 @@ class MyConstants extends InheritedWidget {
   /// The list of stream https source names and links
   final Map<String, String> radioStreamHttps = const {
     'The Canalside Radio': 'https://das-edge63-live365-dal03.cdnstream.com/a62767',
-    'SomaFM (test)': 'https://ice1.somafm.com/groovesalad-128-mp3',
   };
 
   final Map<String, String> radioStreamImages = const {
     'The Canalside Radio': '',
-    'SomaFM (test)': '',
   };
 
   /// The list of items in the top menu bar
