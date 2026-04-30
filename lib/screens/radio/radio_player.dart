@@ -227,8 +227,8 @@ class _RadioPlayer extends State<RadioPlayer>
             child: CachedNetworkImage(
               imageUrl: artUri.toString(),
               fit: BoxFit.contain,
-              placeholder: (_, __) => fallback,
-              errorWidget: (_, __, ___) => fallback,
+              placeholder: (_, _) => fallback,
+              errorWidget: (_, _, _) => fallback,
             ),
           ),
         );

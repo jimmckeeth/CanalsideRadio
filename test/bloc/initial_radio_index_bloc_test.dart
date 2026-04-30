@@ -66,7 +66,11 @@ void main() {
       final bloc = InitialRadioIndexBloc();
       await bloc.prefs;
       bloc.dispose();
-      await expectLater(bloc.initialRadioIndexStream, emitsDone);
+      // BehaviorSubject replays its last value to new subscribers before done
+      await expectLater(
+        bloc.initialRadioIndexStream,
+        emitsInOrder([anything, emitsDone]),
+      );
     });
   });
 }

@@ -35,7 +35,11 @@ void main() {
 
     test('stream closes after dispose', () async {
       bloc.dispose();
-      await expectLater(bloc.radioLoadingStream, emitsDone);
+      // BehaviorSubject replays its last value to new subscribers before done
+      await expectLater(
+        bloc.radioLoadingStream,
+        emitsInOrder([anything, emitsDone]),
+      );
     });
   });
 }

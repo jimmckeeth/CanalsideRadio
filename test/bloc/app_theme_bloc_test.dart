@@ -69,7 +69,11 @@ void main() {
       final bloc = AppThemeBloc();
       await bloc.prefs;
       bloc.dispose();
-      await expectLater(bloc.appThemeStream, emitsDone);
+      // BehaviorSubject replays its last value to new subscribers before done
+      await expectLater(
+        bloc.appThemeStream,
+        emitsInOrder([anything, emitsDone]),
+      );
     });
   });
 }
