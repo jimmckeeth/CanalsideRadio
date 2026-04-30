@@ -31,6 +31,7 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     compileSdkVersion 36
+    ndkVersion = "28.2.13676358"
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -73,8 +74,12 @@ android {
     }
     buildTypes {
         release {
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig signingConfigs.release
+            // Use release signing when secrets are available; fall back to debug signing otherwise.
+            if (keystorePropertiesFile.exists() || System.getenv()["CM_KEYSTORE_PATH"]) {
+                signingConfig signingConfigs.release
+            } else {
+                signingConfig signingConfigs.debug
+            }
             shrinkResources false // required by audio_service plugin
             minifyEnabled true
             ndk {
