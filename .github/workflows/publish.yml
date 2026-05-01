@@ -110,6 +110,42 @@ jobs:
           cp $RUNNER_TEMP/profile.mobileprovision \
             ~/Library/MobileDevice/Provisioning\ Profiles/
 
+      # Shorebird passes the IPA path to altool unquoted, so a space in the
+      # bundle display name causes the shell to split the path. Replace altool
+      # with a wrapper that locates the actual IPA by glob when the given path
+      # doesn't exist (i.e. was truncated at the space).
+      - name: Patch altool to handle IPA path with spaces
+        run: |
+          ALTOOL=$(find /Applications/Xcode*.app -name altool -type f 2>/dev/null | head -1)
+          echo "Patching altool at: $ALTOOL"
+          sudo cp "$ALTOOL" "${ALTOOL}.real"
+          cat > /tmp/altool_wrapper << 'WRAPPER'
+          #!/bin/bash
+          REAL="${BASH_SOURCE[0]}.real"
+          args=()
+          skip=false
+          while [[ $# -gt 0 ]]; do
+            arg="$1"; shift
+            if $skip; then
+              [[ "$arg" == -* ]] && { skip=false; args+=("$arg"); }
+              continue
+            fi
+            if [[ "$arg" == "-f" && $# -gt 0 ]]; then
+              ipa="$1"; shift
+              if [[ ! -f "$ipa" ]]; then
+                found=$(find "$(dirname "$ipa")" -maxdepth 1 -name "*.ipa" 2>/dev/null | head -1)
+                [[ -n "$found" ]] && { ipa="$found"; skip=true; }
+              fi
+              args+=("-f" "$ipa")
+            else
+              args+=("$arg")
+            fi
+          done
+          exec "$REAL" "${args[@]}"
+          WRAPPER
+          sudo cp /tmp/altool_wrapper "$ALTOOL"
+          sudo chmod +x "$ALTOOL"
+
       - name: Shorebird release
         env:
           SHOREBIRD_TOKEN: ${{ secrets.SHOREBIRD_TOKEN }}
