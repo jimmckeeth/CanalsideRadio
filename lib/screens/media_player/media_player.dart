@@ -615,10 +615,7 @@ class _MediaPlayer extends State<MediaPlayer> {
         '$fileLink'
         '\n\nShared from Canalside Radio App\n'
         'https://thecanalsideradio.com';
-    SharePlus.instance.share(ShareParams(
-      text: text,
-      subject: subject,
-    ));
+    SharePlus.instance.share(ShareParams(text: text, subject: subject));
   }
 
   /// returns if the app has permission to save in external path

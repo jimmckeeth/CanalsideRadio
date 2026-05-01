@@ -20,16 +20,19 @@ void main() {
       bloc.dispose();
     });
 
-    test('respects stored radioIndex when initialRadioIndex is -1 (recent)', () async {
-      SharedPreferences.setMockInitialValues({
-        'radioIndex': 1,
-        'initialRadioIndex': -1,
-      });
-      final bloc = RadioIndexBloc();
-      await bloc.prefs;
-      await expectLater(bloc.radioIndexStream, emitsThrough(1));
-      bloc.dispose();
-    });
+    test(
+      'respects stored radioIndex when initialRadioIndex is -1 (recent)',
+      () async {
+        SharedPreferences.setMockInitialValues({
+          'radioIndex': 1,
+          'initialRadioIndex': -1,
+        });
+        final bloc = RadioIndexBloc();
+        await bloc.prefs;
+        await expectLater(bloc.radioIndexStream, emitsThrough(1));
+        bloc.dispose();
+      },
+    );
 
     test('uses initialRadioIndex when set to a specific stream', () async {
       SharedPreferences.setMockInitialValues({

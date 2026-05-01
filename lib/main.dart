@@ -66,7 +66,9 @@ class MyApp extends StatelessWidget {
         StreamProvider<iccp.InternetStatus>(
           initialData: iccp.InternetStatus.connected,
           create: (context) {
-            return getIt<InternetStatus>().internetStatusStreamController.stream;
+            return getIt<InternetStatus>()
+                .internetStatusStreamController
+                .stream;
           },
         ),
         // stream for initial Canalside Radio stream index
@@ -90,9 +92,9 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: Consumer<AppThemeBloc>(
-          // listen to change of app theme
-          builder: (context, appThemeBloc, child) {
-        return StreamBuilder<String?>(
+        // listen to change of app theme
+        builder: (context, appThemeBloc, child) {
+          return StreamBuilder<String?>(
             stream: appThemeBloc.appThemeStream as Stream<String?>?,
             builder: (context, snapshot) {
               String appTheme =
@@ -119,8 +121,10 @@ class MyApp extends StatelessWidget {
                   Settings.route: (context) => const Settings(),
                 },
               );
-            });
-      }),
+            },
+          );
+        },
+      ),
     );
   }
 }

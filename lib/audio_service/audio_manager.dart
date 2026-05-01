@@ -161,7 +161,9 @@ class AudioManager {
   }
 
   void _listenToPlaybackState() {
-    _playbackStateSubscription = _audioHandler.playbackState.listen((playbackState) {
+    _playbackStateSubscription = _audioHandler.playbackState.listen((
+      playbackState,
+    ) {
       final processingState = playbackState.processingState;
       if (processingState == AudioProcessingState.loading ||
           processingState == AudioProcessingState.buffering) {
@@ -194,7 +196,9 @@ class AudioManager {
   }
 
   void _listenToBufferedPosition() {
-    _bufferedPositionSubscription = _audioHandler.playbackState.listen((playbackState) {
+    _bufferedPositionSubscription = _audioHandler.playbackState.listen((
+      playbackState,
+    ) {
       final ProgressBarState oldState = progressNotifier.value;
       progressNotifier.value = ProgressBarState(
         current: oldState.current,

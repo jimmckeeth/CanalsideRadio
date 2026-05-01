@@ -73,11 +73,7 @@ class _Settings extends State<Settings> {
   Widget _generalSection() {
     return SettingsSection(
       title: 'General Settings',
-      child: Column(
-        children: [
-          AppTheme(contentPadding: _contentPadding),
-        ],
-      ),
+      child: Column(children: [AppTheme(contentPadding: _contentPadding)]),
     );
   }
 
@@ -148,8 +144,12 @@ class _Settings extends State<Settings> {
           ListBody(
             children: const [
               Padding(
-                padding:
-                    EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+                padding: EdgeInsets.only(
+                  left: 20,
+                  right: 20,
+                  top: 10,
+                  bottom: 10,
+                ),
                 child: Text(
                   'This app uses open source software packages. '
                   'To view the full license text of each package, '

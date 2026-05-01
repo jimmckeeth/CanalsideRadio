@@ -8,9 +8,7 @@ import 'package:radiostream/widgets/top_media_player.dart';
 import 'package:radiostream/widgets/top_menu.dart';
 
 class Home extends StatefulWidget {
-  const Home({
-    super.key,
-  });
+  const Home({super.key});
 
   @override
   State<Home> createState() => _Home();
@@ -54,13 +52,7 @@ class _Home extends State<Home> with WidgetsBindingObserver {
     return Scaffold(
       // scaffold key for whole app to show snackbar
       key: getIt<ScaffoldHelper>().scaffoldKey,
-      body: const Stack(
-        children: [
-          RadioHome(),
-          TopMenu(),
-          TopMediaPlayer(),
-        ],
-      ),
+      body: const Stack(children: [RadioHome(), TopMenu(), TopMediaPlayer()]),
     );
   }
 }

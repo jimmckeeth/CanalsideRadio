@@ -10,7 +10,8 @@ class MyConstants extends InheritedWidget {
 
   /// The list of stream https source names and links
   final Map<String, String> radioStreamHttps = const {
-    'The Canalside Radio': 'https://das-edge63-live365-dal03.cdnstream.com/a62767',
+    'The Canalside Radio':
+        'https://das-edge63-live365-dal03.cdnstream.com/a62767',
   };
 
   final Map<String, String> radioStreamImages = const {
@@ -42,9 +43,7 @@ class MyConstants extends InheritedWidget {
   };
 
   /// list of audio archive images with names
-  final Map<String, String> audioArchive = const {
-
-  };
+  final Map<String, String> audioArchive = const {};
 
   /// list of audio archive names and fids
   final Map<String, String> audioArchiveFids = const {
@@ -60,17 +59,11 @@ class MyConstants extends InheritedWidget {
   };
 
   /// list of audio archive names and search parameters
-  final Map<String, String> audioArchiveSearch = const {
-
-  };
+  final Map<String, String> audioArchiveSearch = const {};
 
   /// list of app themes
   // Note: don't change or move the values
-  final List<String> appThemes = const [
-    'Light',
-    'Dark',
-    'System default',
-  ];
+  final List<String> appThemes = const ['Light', 'Dark', 'System default'];
 
   @override
   bool updateShouldNotify(MyConstants oldWidget) => false;

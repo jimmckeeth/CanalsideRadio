@@ -13,9 +13,7 @@ import 'package:radiostream/screens/settings/settings.dart';
 ///
 /// shows a pop-up menu for different screen navigations
 class TopMenu extends StatefulWidget {
-  const TopMenu({
-    super.key,
-  });
+  const TopMenu({super.key});
 
   @override
   State<TopMenu> createState() => _TopMenu();
@@ -30,10 +28,7 @@ class _TopMenu extends State<TopMenu> {
     return Align(
       alignment: Alignment.topRight,
       child: Padding(
-        padding: EdgeInsets.only(
-          top: topPadding,
-          right: rightPadding,
-        ),
+        padding: EdgeInsets.only(top: topPadding, right: rightPadding),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -74,7 +69,8 @@ class _TopMenu extends State<TopMenu> {
                     color: Colors.white,
                   ),
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                   iconSize: 30,
                   offset: const Offset(-10, 10),
                   itemBuilder: (context) {
@@ -82,25 +78,30 @@ class _TopMenu extends State<TopMenu> {
                     return menuTitles.keys
                         .toList()
                         .map<PopupMenuEntry<dynamic>>((value) {
-                      return PopupMenuItem<dynamic>(
-                        value: value,
-                        child: Row(
-                          children: [
-                            Icon(Platform.isAndroid
-                                ? MyConstants.of(context)!
-                                    .menuTitleAndroidIcons[value]!
-                                : MyConstants.of(context)!
-                                    .menuTitleIosIcons[value]!),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 8),
-                              child: Text(
-                                MyConstants.of(context)!.menuTitles[value]!,
-                              ),
+                          return PopupMenuItem<dynamic>(
+                            value: value,
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Platform.isAndroid
+                                      ? MyConstants.of(
+                                          context,
+                                        )!.menuTitleAndroidIcons[value]!
+                                      : MyConstants.of(
+                                          context,
+                                        )!.menuTitleIosIcons[value]!,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 8),
+                                  child: Text(
+                                    MyConstants.of(context)!.menuTitles[value]!,
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                      );
-                    }).toList();
+                          );
+                        })
+                        .toList();
                   },
                   onSelected: (value) {
                     switch (value) {
@@ -108,12 +109,14 @@ class _TopMenu extends State<TopMenu> {
                         getIt<NavigationService>().navigateTo(Settings.route);
                         break;
                       case MenuNavigation.schedule:
-                        getIt<NavigationService>()
-                            .navigateTo(RadioSchedule.route);
+                        getIt<NavigationService>().navigateTo(
+                          RadioSchedule.route,
+                        );
                         break;
                       case MenuNavigation.audio:
-                        getIt<NavigationService>()
-                            .navigateTo(AudioArchive.route);
+                        getIt<NavigationService>().navigateTo(
+                          AudioArchive.route,
+                        );
                         break;
                     }
                   },

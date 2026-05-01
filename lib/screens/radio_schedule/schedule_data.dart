@@ -504,154 +504,154 @@ class _ScheduleData extends State<ScheduleData> {
   /// need date (selected date) to be passed
   void _parseData(String response, DateTime date) {
     try {
-    final data = jsonDecode(response);
-    List<ScheduleEntity> finalData = [];
-    for (var row in data) {
-      // get date time and convert it to local
+      final data = jsonDecode(response);
+      List<ScheduleEntity> finalData = [];
+      for (var row in data) {
+        // get date time and convert it to local
 
-      DateTime dateTime = DateFormat(
-        'yyyy-MM-dd hh:mm',
-      ).parse(row[1], true).toLocal();
-      int difference = DateTime(
-        dateTime.year,
-        dateTime.month,
-        dateTime.day,
-      ).difference(DateTime(date.year, date.month, date.day)).inDays;
-      // add data only if it's today after converting
-      if (difference != 0) continue;
+        DateTime dateTime = DateFormat(
+          'yyyy-MM-dd hh:mm',
+        ).parse(row[1], true).toLocal();
+        int difference = DateTime(
+          dateTime.year,
+          dateTime.month,
+          dateTime.day,
+        ).difference(DateTime(date.year, date.month, date.day)).inDays;
+        // add data only if it's today after converting
+        if (difference != 0) continue;
 
-      // parse content
-      var content = row[3];
-      int clickHere = content.indexOf('- <a');
-      if (clickHere > 0) {
-        content = content.substring(0, clickHere);
+        // parse content
+        var content = row[3];
+        int clickHere = content.indexOf('- <a');
+        if (clickHere > 0) {
+          content = content.substring(0, clickHere);
+        }
+
+        // removing the strong or some other tags inside the text
+        var doc = parse(content);
+        content = doc.body!.text;
+
+        // add it to final data
+        finalData.add(
+          ScheduleEntity(
+            dateTime: dateTime,
+            category: row[2],
+            content: content,
+            durationMin: int.parse(row[4]),
+            relatedLink: row[5],
+            newFlag: row[6] == '1',
+            firstBroadcastOn: row[7],
+          ),
+        );
       }
 
-      // removing the strong or some other tags inside the text
-      var doc = parse(content);
-      content = doc.body!.text;
+      // var document = parse(response);
+      // var table = document.getElementById('sch')!;
+      // // parsing table heads
+      // List<String> tableHead = [];
+      // for (int i = 1; i < 6; i++) {
+      //   tableHead.add(table.getElementsByTagName('th')[i].text);
+      //   var stringLength = tableHead[i - 1].length;
+      //   tableHead[i - 1] = tableHead[i - 1].substring(4, stringLength - 3);
+      //   tableHead[i - 1] = tableHead[i - 1].replaceAll('\n', ' ');
+      //   tableHead[i - 1] = tableHead[i - 1].replaceAll('\t', '');
+      //   tableHead[i - 1] = tableHead[i - 1].trim();
+      // }
+      // // return data from tableHead
+      // // [0] Sl. No. [1] Loacl Time [2] GMT Time
+      // // [3] Programe List [4] Duration(min)
 
-      // add it to final data
-      finalData.add(
-        ScheduleEntity(
-          dateTime: dateTime,
-          category: row[2],
-          content: content,
-          durationMin: int.parse(row[4]),
-          relatedLink: row[5],
-          newFlag: row[6] == '1',
-          firstBroadcastOn: row[7],
-        ),
-      );
-    }
+      // // getting the local time
+      // String localTime = tableHead[1].substring(4);
+      // localTime = localTime.replaceAll('(', '');
+      // localTime = localTime.replaceAll(')', '');
+      // localTime = localTime.trim();
 
-    // var document = parse(response);
-    // var table = document.getElementById('sch')!;
-    // // parsing table heads
-    // List<String> tableHead = [];
-    // for (int i = 1; i < 6; i++) {
-    //   tableHead.add(table.getElementsByTagName('th')[i].text);
-    //   var stringLength = tableHead[i - 1].length;
-    //   tableHead[i - 1] = tableHead[i - 1].substring(4, stringLength - 3);
-    //   tableHead[i - 1] = tableHead[i - 1].replaceAll('\n', ' ');
-    //   tableHead[i - 1] = tableHead[i - 1].replaceAll('\t', '');
-    //   tableHead[i - 1] = tableHead[i - 1].trim();
-    // }
-    // // return data from tableHead
-    // // [0] Sl. No. [1] Loacl Time [2] GMT Time
-    // // [3] Programe List [4] Duration(min)
+      // // parsing table data
+      // List<List<String>> tableData = [];
+      // int dataLength = table.getElementsByTagName('tr').length - 1;
+      // if (dataLength == 0) {
+      //   tableData = [
+      //     ['null']
+      //   ];
+      //   setState(() {
+      //     // set the data
+      //     // _finalTableHead = tableHead;
+      //     _finalTableData = tableData;
+      //     _finalLocalTime = localTime;
 
-    // // getting the local time
-    // String localTime = tableHead[1].substring(4);
-    // localTime = localTime.replaceAll('(', '');
-    // localTime = localTime.replaceAll(')', '');
-    // localTime = localTime.trim();
+      //     // loading is done
+      //     _isLoading = false;
+      //   });
+      //   return;
+      // }
+      // for (int i = 1; i <= dataLength; i++) {
+      //   List<String> tempList = [];
+      //   var rowData =
+      //       table.getElementsByTagName('tr')[i].getElementsByTagName('td');
+      //   for (int j = 1; j < 6; j++) {
+      //     if (j != 4) {
+      //       tempList.add(rowData[j].text);
+      //       var stringLength = tempList[j - 1].length;
+      //       tempList[j - 1] = tempList[j - 1].substring(4, stringLength - 3);
+      //       tempList[j - 1] = tempList[j - 1].replaceAll('\n', ' ');
+      //       tempList[j - 1] = tempList[j - 1].replaceAll('\t', '');
+      //       tempList[j - 1] = tempList[j - 1].trim();
+      //     } else {
+      //       // if j is 4, parse it differently
 
-    // // parsing table data
-    // List<List<String>> tableData = [];
-    // int dataLength = table.getElementsByTagName('tr').length - 1;
-    // if (dataLength == 0) {
-    //   tableData = [
-    //     ['null']
-    //   ];
-    //   setState(() {
-    //     // set the data
-    //     // _finalTableHead = tableHead;
-    //     _finalTableData = tableData;
-    //     _finalLocalTime = localTime;
+      //       String tempText = rowData[j].text;
+      //       var stringLength = tempText.length;
+      //       tempText = tempText.substring(4, stringLength - 3);
+      //       tempText = tempText.replaceAll('\n', ' ');
+      //       tempText = tempText.replaceAll('\t', '');
+      //       tempText = tempText.trim();
+      //       tempText = tempText.replaceFirst(' ', '<split>');
 
-    //     // loading is done
-    //     _isLoading = false;
-    //   });
-    //   return;
-    // }
-    // for (int i = 1; i <= dataLength; i++) {
-    //   List<String> tempList = [];
-    //   var rowData =
-    //       table.getElementsByTagName('tr')[i].getElementsByTagName('td');
-    //   for (int j = 1; j < 6; j++) {
-    //     if (j != 4) {
-    //       tempList.add(rowData[j].text);
-    //       var stringLength = tempList[j - 1].length;
-    //       tempList[j - 1] = tempList[j - 1].substring(4, stringLength - 3);
-    //       tempList[j - 1] = tempList[j - 1].replaceAll('\n', ' ');
-    //       tempList[j - 1] = tempList[j - 1].replaceAll('\t', '');
-    //       tempList[j - 1] = tempList[j - 1].trim();
-    //     } else {
-    //       // if j is 4, parse it differently
+      //       // remove click here tags
+      //       int clickHere = tempText.indexOf('- Click here');
+      //       if (clickHere > 0) {
+      //         int clickHereEnd = tempText.indexOf('-', clickHere + 2);
+      //         tempText = tempText.substring(0, clickHere) +
+      //             tempText.substring(clickHereEnd);
+      //       }
+      //       // TODO: get pdf scripts for discourse stream (click here tags)
 
-    //       String tempText = rowData[j].text;
-    //       var stringLength = tempText.length;
-    //       tempText = tempText.substring(4, stringLength - 3);
-    //       tempText = tempText.replaceAll('\n', ' ');
-    //       tempText = tempText.replaceAll('\t', '');
-    //       tempText = tempText.trim();
-    //       tempText = tempText.replaceFirst(' ', '<split>');
+      //       String? fids = '';
+      //       if (rowData[j].getElementsByTagName('input').isNotEmpty) {
+      //         fids =
+      //             rowData[j].getElementsByTagName('input')[0].attributes['value'];
+      //       }
+      //       tempText += '<split>[$fids]';
 
-    //       // remove click here tags
-    //       int clickHere = tempText.indexOf('- Click here');
-    //       if (clickHere > 0) {
-    //         int clickHereEnd = tempText.indexOf('-', clickHere + 2);
-    //         tempText = tempText.substring(0, clickHere) +
-    //             tempText.substring(clickHereEnd);
-    //       }
-    //       // TODO: get pdf scripts for discourse stream (click here tags)
+      //       tempList.add(tempText);
+      //     }
+      //     // data of [3] will be
+      //     // type<split>content<split>[fids]
+      //     // fids is empty if it is a live session
+      //     // content might also contain "- NEW"
+      //   }
+      //   tableData.add(tempList);
+      // }
+      // // return data from table data
+      // // [0] Sl. No. [1] Loacl Time [2] GMT Time
+      // // [3] Programe List [4] Duration(min)
 
-    //       String? fids = '';
-    //       if (rowData[j].getElementsByTagName('input').isNotEmpty) {
-    //         fids =
-    //             rowData[j].getElementsByTagName('input')[0].attributes['value'];
-    //       }
-    //       tempText += '<split>[$fids]';
+      // if (tableData.isEmpty) {
+      //   tableData = [
+      //     ['null']
+      //   ];
+      // }
 
-    //       tempList.add(tempText);
-    //     }
-    //     // data of [3] will be
-    //     // type<split>content<split>[fids]
-    //     // fids is empty if it is a live session
-    //     // content might also contain "- NEW"
-    //   }
-    //   tableData.add(tempList);
-    // }
-    // // return data from table data
-    // // [0] Sl. No. [1] Loacl Time [2] GMT Time
-    // // [3] Programe List [4] Duration(min)
+      if (mounted) {
+        setState(() {
+          // set the data
+          _finalData = finalData;
 
-    // if (tableData.isEmpty) {
-    //   tableData = [
-    //     ['null']
-    //   ];
-    // }
-
-    if (mounted) {
-      setState(() {
-        // set the data
-        _finalData = finalData;
-
-        // loading is done
-        _isLoading = false;
-      });
-    }
+          // loading is done
+          _isLoading = false;
+        });
+      }
     } catch (_) {
       if (mounted) {
         setState(() {

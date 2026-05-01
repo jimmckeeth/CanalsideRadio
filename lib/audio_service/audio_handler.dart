@@ -180,9 +180,9 @@ class MyAudioHandler extends BaseAudioHandler {
         index = _player.shuffleIndices[index];
       }
       final oldMediaItem = newQueue[index]!;
-      final MediaItem newMediaItem = _applyIcy(oldMediaItem.copyWith(
-        duration: duration ?? Duration.zero,
-      ));
+      final MediaItem newMediaItem = _applyIcy(
+        oldMediaItem.copyWith(duration: duration ?? Duration.zero),
+      );
       newQueue[index] = newMediaItem;
       queue.add(newQueue as List<MediaItem>);
       mediaItem.add(newMediaItem);
@@ -384,9 +384,9 @@ class MyAudioHandler extends BaseAudioHandler {
   }
 }
 
-  /*******************************************************/
-  /*            Below is Old Code of Media Player        */
-  /*******************************************************/
+/*******************************************************/
+/*            Below is Old Code of Media Player        */
+/*******************************************************/
 
 /* START OF COMMENT
 

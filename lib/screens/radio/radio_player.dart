@@ -144,9 +144,7 @@ class _RadioPlayer extends State<RadioPlayer>
               minHeight: multiStream ? height * 0.1 : 0,
               // remove the collapsed widget if the height is small (below 2 lines)
               collapsed: multiStream
-                  ? (isBigScreen
-                      ? _slidingPanelCollapsed(widget.radius)
-                      : null)
+                  ? (isBigScreen ? _slidingPanelCollapsed(widget.radius) : null)
                   : null,
               renderPanelSheet: false,
               // handle the height of the panel for different sizes
@@ -300,7 +298,8 @@ class _RadioPlayer extends State<RadioPlayer>
                 child: ValueListenableBuilder<String>(
                   valueListenable: _audioManager!.currentSongTitleNotifier,
                   builder: (context, icyTitle, _) {
-                    final showIcy = icyTitle.isNotEmpty &&
+                    final showIcy =
+                        icyTitle.isNotEmpty &&
                         icyTitle != playingRadioStreamName;
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

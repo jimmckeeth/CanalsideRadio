@@ -5,10 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 
 /// mentions if the media type is either radio/media
-enum MediaType {
-  radio,
-  media,
-}
+enum MediaType { radio, media }
 
 // Media Helper is useful to handle common methods used by media/media player
 class MediaHelper {
@@ -32,7 +29,10 @@ class MediaHelper {
   ///
   /// isFileExists - mention if the file exists to set uri for audio
   static Future<MediaItem> generateMediaItem(
-      String name, String? link, bool isFileExists) async {
+    String name,
+    String? link,
+    bool isFileExists,
+  ) async {
     // Get the path of image for artUri in notification
     String path = await getDefaultNotificationImage();
 
@@ -43,9 +43,7 @@ class MediaHelper {
 
     String fileId = await getFileIdFromUri(link!);
 
-    Map<String, dynamic> extras = {
-      'uri': link,
-    };
+    Map<String, dynamic> extras = {'uri': link};
 
     // Set media item to tell the clients what is playing
     // extras['uri'] contains the audio source

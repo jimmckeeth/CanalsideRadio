@@ -39,8 +39,7 @@ class _Media extends State<Media> {
   bool _isLoading = true;
 
   /// contains the base url of the downloads page
-  final String baseUrl =
-      'https://schedule.example.com/program/Download.php';
+  final String baseUrl = 'https://schedule.example.com/program/Download.php';
 
   /// the url with all the parameters (a unique url)
   String finalUrl = '';
