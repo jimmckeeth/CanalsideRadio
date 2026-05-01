@@ -52,7 +52,6 @@ app.*.map.json
 /ios/Flutter/ephemeral
 
 # Android related
-**/android/**/gradle-wrapper.jar
 **/android/.gradle
 **/android/captures/
 **/android/local.properties
