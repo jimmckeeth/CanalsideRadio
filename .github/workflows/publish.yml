@@ -12,6 +12,9 @@ on:
         type: choice
         options: [android, ios, both]
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   publish-android:
     name: Publish Android
@@ -133,5 +136,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: release-ios
-          path: build/ios/ipa/*.ipa
+          path: build/ios/ipa/
           if-no-files-found: warn
