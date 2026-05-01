@@ -124,7 +124,7 @@ jobs:
       - name: Shorebird release
         env:
           SHOREBIRD_TOKEN: ${{ secrets.SHOREBIRD_TOKEN }}
-        run: shorebird release ios
+        run: shorebird release ios --export-options-plist ios/ExportOptions.plist
 
       - name: Upload to App Store Connect
         env:
