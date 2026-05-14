@@ -76,3 +76,9 @@ app.*.map.json
 
 # Coverage
 coverage/
+.claude/settings.local.json
+android/app/pepk.jar
+android/app/encryption_public_key.pem
+
+# AI Agents / GStack
+.gstack/

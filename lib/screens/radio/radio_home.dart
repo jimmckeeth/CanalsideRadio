@@ -156,6 +156,16 @@ class _RadioHome extends State<RadioHome> {
   }
 
   Future<void> _validateAndPlayMedia(Uri? uri) async {
+    // SECURITY: Validate domain to prevent SSRF and forced playback via malicious intents
+    if (uri?.host != 'thecanalsideradio.com' &&
+        uri?.host != 'www.thecanalsideradio.com') {
+      getIt<ScaffoldHelper>().showSnackBar(
+        'Invalid source',
+        const Duration(seconds: 2),
+      );
+      return;
+    }
+
     String receivedLink = uri.toString();
     String name = MediaHelper.getNameFromLink(receivedLink);
     // TODO: check if the navigator already contains mediaplayer
