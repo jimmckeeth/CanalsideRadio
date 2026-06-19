@@ -60,8 +60,24 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: release-android
-          path: build/app/outputs/**/*.apk
+          path: |
+            build/app/outputs/**/*.aab
+            build/app/outputs/**/*.apk
           if-no-files-found: warn
+
+      # Uploads to the internal test track. Requires GOOGLE_PLAY_JSON_KEY secret
+      # (Play Console → Setup → API access → Service accounts → download JSON key).
+      # Skip this step until the Play Console listing is created and secret is added.
+      - name: Upload to Google Play
+        if: env.GOOGLE_PLAY_JSON_KEY != ''
+        uses: r0adkll/upload-google-play@v1
+        env:
+          GOOGLE_PLAY_JSON_KEY: ${{ secrets.GOOGLE_PLAY_JSON_KEY }}
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.GOOGLE_PLAY_JSON_KEY }}
+          packageName: com.thecanalsideradio.radiostream
+          releaseFiles: build/app/outputs/bundle/release/*.aab
+          track: internal
 
   publish-ios:
     name: Publish iOS
