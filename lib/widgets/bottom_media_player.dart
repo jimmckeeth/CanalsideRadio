@@ -74,7 +74,9 @@ class _BottomMediaPlayer extends State<BottomMediaPlayer> {
                     color: Theme.of(context).colorScheme.secondaryContainer,
                     border: Border(
                       top: BorderSide(
-                        color: Theme.of(context).colorScheme.onSecondaryContainer,
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.onSecondaryContainer,
                       ),
                     ),
                   ),
@@ -95,25 +97,33 @@ class _BottomMediaPlayer extends State<BottomMediaPlayer> {
                                   imageUrl: artUri.toString(),
                                   fit: BoxFit.cover,
                                   placeholder: (context, url) => const Image(
-                                    image: AssetImage('assets/canalside-logo-round.png'),
+                                    image: AssetImage(
+                                      'assets/canalside-logo-round.png',
+                                    ),
                                     fit: BoxFit.cover,
                                   ),
-                                  errorWidget: (context, url, error) => const Image(
-                                    image: AssetImage('assets/canalside-logo-round.png'),
-                                    fit: BoxFit.cover,
-                                  ),
+                                  errorWidget: (context, url, error) =>
+                                      const Image(
+                                        image: AssetImage(
+                                          'assets/canalside-logo-round.png',
+                                        ),
+                                        fit: BoxFit.cover,
+                                      ),
                                 );
                               }
                               return const Image(
                                 fit: BoxFit.cover,
                                 alignment: Alignment(0, -1),
-                                image: AssetImage('assets/canalside-logo-round.png'),
+                                image: AssetImage(
+                                  'assets/canalside-logo-round.png',
+                                ),
                               );
                             },
                           ),
                         ),
                         ValueListenableBuilder<String>(
-                          valueListenable: _audioManager!.currentSongTitleNotifier,
+                          valueListenable:
+                              _audioManager!.currentSongTitleNotifier,
                           builder: (context, mediaTitle, child) {
                             if (mediaTitle == '') {
                               mediaTitle = 'loading media...';

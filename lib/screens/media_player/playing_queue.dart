@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:audio_service/audio_service.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -244,8 +246,8 @@ class _PlayingQueue extends State<PlayingQueue> {
                         return CachedNetworkImage(
                           imageUrl: artUri.toString(),
                           fit: BoxFit.cover,
-                          placeholder: (_, __) => fallback,
-                          errorWidget: (_, __, ___) => fallback,
+                          placeholder: (context, url) => fallback,
+                          errorWidget: (context, url, error) => fallback,
                         );
                       }
                       return fallback;

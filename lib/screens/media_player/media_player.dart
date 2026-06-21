@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:audio_service/audio_service.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -116,14 +117,17 @@ class _MediaPlayer extends State<MediaPlayer> {
                             builder: (context, artUri, _) {
                               const fallback = Image(
                                 fit: BoxFit.contain,
-                                image: AssetImage('assets/canalside-logo-round.png'),
+                                image: AssetImage(
+                                  'assets/canalside-logo-round.png',
+                                ),
                               );
                               if (artUri != null && artUri.isScheme('https')) {
                                 return CachedNetworkImage(
                                   imageUrl: artUri.toString(),
                                   fit: BoxFit.contain,
-                                  placeholder: (_, __) => fallback,
-                                  errorWidget: (_, __, ___) => fallback,
+                                  placeholder: (context, url) => fallback,
+                                  errorWidget: (context, url, error) =>
+                                      fallback,
                                 );
                               }
                               return fallback;
