@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:radiostream/audio_service/audio_manager.dart';
@@ -73,9 +74,7 @@ class _BottomMediaPlayer extends State<BottomMediaPlayer> {
                     color: Theme.of(context).colorScheme.secondaryContainer,
                     border: Border(
                       top: BorderSide(
-                        color: Theme.of(
-                          context,
-                        ).colorScheme.onSecondaryContainer,
+                        color: Theme.of(context).colorScheme.onSecondaryContainer,
                       ),
                     ),
                   ),
@@ -85,19 +84,36 @@ class _BottomMediaPlayer extends State<BottomMediaPlayer> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        const SizedBox(
+                        SizedBox(
                           height: 40,
                           width: 40,
-                          child: Image(
-                            fit: BoxFit.cover,
-                            alignment: Alignment(0, -1),
-                            // TODO: get image from artUri
-                            image: AssetImage('assets/sai_listens.jpg'),
+                          child: ValueListenableBuilder<Uri?>(
+                            valueListenable: _audioManager!.artUriNotifier,
+                            builder: (context, artUri, _) {
+                              if (artUri != null && artUri.isScheme('https')) {
+                                return CachedNetworkImage(
+                                  imageUrl: artUri.toString(),
+                                  fit: BoxFit.cover,
+                                  placeholder: (context, url) => const Image(
+                                    image: AssetImage('assets/canalside-logo-round.png'),
+                                    fit: BoxFit.cover,
+                                  ),
+                                  errorWidget: (context, url, error) => const Image(
+                                    image: AssetImage('assets/canalside-logo-round.png'),
+                                    fit: BoxFit.cover,
+                                  ),
+                                );
+                              }
+                              return const Image(
+                                fit: BoxFit.cover,
+                                alignment: Alignment(0, -1),
+                                image: AssetImage('assets/canalside-logo-round.png'),
+                              );
+                            },
                           ),
                         ),
                         ValueListenableBuilder<String>(
-                          valueListenable:
-                              _audioManager!.currentSongTitleNotifier,
+                          valueListenable: _audioManager!.currentSongTitleNotifier,
                           builder: (context, mediaTitle, child) {
                             if (mediaTitle == '') {
                               mediaTitle = 'loading media...';
@@ -105,7 +121,6 @@ class _BottomMediaPlayer extends State<BottomMediaPlayer> {
                             return SizedBox(
                               width: width * 0.65,
                               child: Text(
-                                // Display Audio Title
                                 mediaTitle,
                                 textAlign: TextAlign.start,
                                 maxLines: 1,
@@ -121,7 +136,6 @@ class _BottomMediaPlayer extends State<BottomMediaPlayer> {
                           builder: (context, playState, snapshot) {
                             final playing =
                                 (playState == PlayButtonState.playing);
-
                             return playing ? pauseButton() : playButton();
                           },
                         ),

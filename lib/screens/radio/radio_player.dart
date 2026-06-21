@@ -209,7 +209,7 @@ class _RadioPlayer extends State<RadioPlayer>
     const fallback = Padding(
       padding: EdgeInsets.all(32),
       child: Image(
-        image: AssetImage('assets/logo-round.png'),
+        image: AssetImage('assets/canalside-logo-round.png'),
         fit: BoxFit.contain,
       ),
     );

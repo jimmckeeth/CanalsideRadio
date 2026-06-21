@@ -222,14 +222,34 @@ class _PlayingQueue extends State<PlayingQueue> {
             child: Padding(
               padding: const EdgeInsets.only(top: 5, left: 5, bottom: 5),
               child: ListTile(
-                leading: const SizedBox(
+                leading: SizedBox(
                   height: 40,
                   width: 40,
-                  child: Image(
-                    fit: BoxFit.cover,
-                    alignment: Alignment(0, -1),
-                    // TODO: get image from artUri
-                    image: AssetImage('assets/sai_listens.jpg'),
+                  child: StreamBuilder<List<MediaItem>>(
+                    stream: _audioManager!.queue,
+                    builder: (context, snapshot) {
+                      final queue = snapshot.data;
+                      final item = queue?.firstWhere(
+                        (element) => element.title == mediaTitle,
+                        orElse: () => const MediaItem(id: '', title: ''),
+                      );
+                      final artUri = item?.artUri;
+                      const fallback = Image(
+                        fit: BoxFit.cover,
+                        alignment: Alignment(0, -1),
+                        image: AssetImage('assets/canalside-logo-round.png'),
+                      );
+
+                      if (artUri != null && artUri.isScheme('https')) {
+                        return CachedNetworkImage(
+                          imageUrl: artUri.toString(),
+                          fit: BoxFit.cover,
+                          placeholder: (_, __) => fallback,
+                          errorWidget: (_, __, ___) => fallback,
+                        );
+                      }
+                      return fallback;
+                    },
                   ),
                 ),
                 title: Text(mediaTitle),

@@ -111,11 +111,23 @@ class _MediaPlayer extends State<MediaPlayer> {
                         child: SizedBox(
                           width: height * 0.35,
                           height: height * 0.35,
-                          child: const Image(
-                            fit: BoxFit.cover,
-                            alignment: Alignment(0, -1),
-                            // TODO: get image from artUri
-                            image: AssetImage('assets/sai_listens.jpg'),
+                          child: ValueListenableBuilder<Uri?>(
+                            valueListenable: _audioManager!.artUriNotifier,
+                            builder: (context, artUri, _) {
+                              const fallback = Image(
+                                fit: BoxFit.contain,
+                                image: AssetImage('assets/canalside-logo-round.png'),
+                              );
+                              if (artUri != null && artUri.isScheme('https')) {
+                                return CachedNetworkImage(
+                                  imageUrl: artUri.toString(),
+                                  fit: BoxFit.contain,
+                                  placeholder: (_, __) => fallback,
+                                  errorWidget: (_, __, ___) => fallback,
+                                );
+                              }
+                              return fallback;
+                            },
                           ),
                         ),
                       ),
