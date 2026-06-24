@@ -41,8 +41,8 @@ dependencies:
   html: ^0.15.6
   http: ^1.4.0
   permission_handler: ^12.0.0+1
-  device_info_plus: ^12.3.0
-  image_gallery_saver_plus: ^4.0.1
+  # device_info_plus: ^12.3.0  # unused - re-enable if device detection needed
+  # image_gallery_saver_plus: ^4.0.1  # unused - re-enable when download feature is restored
   flutter_cache_manager: ^3.4.1
   # flutter_downloader: ^1.6.1
   share_plus: ^12.0.1
